@@ -1,0 +1,42 @@
+/* line 1, ../../app/stylesheets/application.sass */
+.clear {
+  clear: both;
+}
+
+/* line 5, ../../app/stylesheets/application.sass */
+.track .number {
+  float: left;
+  width: 60px;
+  margin: 5px 10px;
+}
+/* line 10, ../../app/stylesheets/application.sass */
+.track .name {
+  float: left;
+  margin: 5px 10px;
+}
+
+/* line 14, ../../app/stylesheets/application.sass */
+#player {
+  border: 1px solid black;
+  margin: 10px;
+  width: 350px;
+}
+/* line 18, ../../app/stylesheets/application.sass */
+#player .prev, #player .play, #player .next {
+  float: left;
+  padding: 5px;
+  width: 100px;
+}
+
+/* line 23, ../../app/stylesheets/application.sass */
+#search {
+  border: 1px solid black;
+  margin: 10px;
+  width: 350px;
+  padding: 10px;
+}
+/* line 28, ../../app/stylesheets/application.sass */
+#search input[type='text'] {
+  border: 1px solid grey;
+  width: 200px;
+}

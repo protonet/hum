@@ -1,7 +1,22 @@
 = link_to 'Load Tracks', load_tracks_path
+#player
+  .prev Prev
+  .play Play
+  .next Next
+  .clear
+
+#search
+  = label_tag :search
+  = text_field_tag :search
+  .clear
+
 - if @listing
-  = @listing.size
+  %div
+    = "#{@listing.size} Tracks"
+    .clear
+
   - @listing.each do |track|
-    .track
+    %div{:id => "track-#{track['id']}", :class => 'track'}
       .number= link_to track['id'], '#', 'data-track-id' => track['id']
-      .name= track['filename']
+      .name= link_to track['filename'], '#', 'data-track-id' => track['id']
+      .clear

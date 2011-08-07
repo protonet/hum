@@ -3,7 +3,7 @@ head(function() {
   var playing = null;
 
   soundManager.onready(function() {
-    $(".track .number a").click(function(e) {
+    $(".track a").click(function(e) {
       if (mySound != null) {
         soundManager.stop('Track ' + playing);
       }
