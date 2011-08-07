@@ -1,0 +1,7 @@
+= link_to 'Load Tracks', load_tracks_path
+- if @listing
+  = @listing.size
+  - @listing.each do |track|
+    .track
+      .number= link_to track['id'], '#', 'data-track-id' => track['id']
+      .name= track['filename']

@@ -1,0 +1,16 @@
+defaults: &defaults
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+test:
+  database: db/hum_test.db
+  <<: *defaults
+
+development:
+  database: db/hum_dev.db
+  <<: *defaults
+
+production:
+  database: db/hum.db
+  <<: *defaults
