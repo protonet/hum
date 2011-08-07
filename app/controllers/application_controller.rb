@@ -8,11 +8,22 @@ class ApplicationController < ActionController::Base
   end
 
   def load_tracks
-    @listing = JSON.parse(HumConfig.get_listing)[0,10]
+    load
     render :action => 'index'
   end
 
-  def play_tack
+protected
 
+  def load
+    if session[:listing]
+      @listing = session[:listing]
+    else
+      @listing = session[:listing] = JSON.parse(HumConfig.get_listing)
+    end
   end
+
+  def reload
+    @listing = session[:listing] = JSON.parse(HumConfig.get_listing)
+  end
+
 end
