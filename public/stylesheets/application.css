@@ -40,3 +40,15 @@
   border: 1px solid grey;
   width: 200px;
 }
+
+/* line 32, ../../app/stylesheets/application.sass */
+#server-url, #number-of-tracks {
+  display: none;
+}
+
+/* line 35, ../../app/stylesheets/application.sass */
+#tracks {
+  overflow: auto;
+  height: 300px;
+  width: 800px;
+}

@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def index
-
+    load
   end
 
-  def load_tracks
-    load
+  def reload_tracks
+    reload
     render :action => 'index'
   end
 

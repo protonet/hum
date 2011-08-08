@@ -1,8 +1,18 @@
-= link_to 'Load Tracks', load_tracks_path
+= link_to 'Load Tracks', reload_tracks_path
+#server-url= HumConfig.conf.server
+-if @listing
+  #number-of-tracks= @listing.size
 #player
-  .prev Prev
-  .play Play
-  .next Next
+  .prev= link_to 'Prev', '#'
+  .play= link_to 'Play', '#'
+  .next= link_to 'Next','#'
+  .clear
+  .random
+    = label_tag :random_play
+    = check_box_tag :random, '1',true
+  .continuous
+    = label_tag :continuous_play
+    = check_box_tag :continuous, '1',true
   .clear
 
 #search
@@ -11,12 +21,13 @@
   .clear
 
 - if @listing
-  %div
-    = "#{@listing.size} Tracks"
-    .clear
-
-  - @listing.each do |track|
-    %div{:id => "track-#{track['id']}", :class => 'track'}
-      .number= link_to track['id'], '#', 'data-track-id' => track['id']
-      .name= link_to track['filename'], '#', 'data-track-id' => track['id']
+  #tracks
+    %div
+      = "#{@listing.size} Tracks"
       .clear
+
+    - @listing.each do |track|
+      %div{:id => "track-#{track['id']}", :class => 'track'}
+        .number= link_to track['id'], '#', 'data-track-id' => track['id'], 'data-track-name' => track['filename']
+        .name= link_to track['filename'], '#', 'data-track-id' => track['id'], 'data-track-name' => track['filename']
+        .clear
