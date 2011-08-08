@@ -1,52 +1,57 @@
 /* line 1, ../../app/stylesheets/application.sass */
+body {
+  font-size: 12px;
+}
+
+/* line 4, ../../app/stylesheets/application.sass */
 .clear {
   clear: both;
 }
 
-/* line 5, ../../app/stylesheets/application.sass */
+/* line 8, ../../app/stylesheets/application.sass */
 .track .number {
   float: left;
   width: 60px;
   margin: 5px 10px;
 }
-/* line 10, ../../app/stylesheets/application.sass */
+/* line 13, ../../app/stylesheets/application.sass */
 .track .name {
   float: left;
   margin: 5px 10px;
 }
 
-/* line 14, ../../app/stylesheets/application.sass */
+/* line 17, ../../app/stylesheets/application.sass */
 #player {
   border: 1px solid black;
   margin: 10px;
   width: 350px;
 }
-/* line 18, ../../app/stylesheets/application.sass */
+/* line 21, ../../app/stylesheets/application.sass */
 #player .prev, #player .play, #player .next {
   float: left;
   padding: 5px;
   width: 100px;
 }
 
-/* line 23, ../../app/stylesheets/application.sass */
+/* line 26, ../../app/stylesheets/application.sass */
 #search {
   border: 1px solid black;
   margin: 10px;
   width: 350px;
   padding: 10px;
 }
-/* line 28, ../../app/stylesheets/application.sass */
+/* line 31, ../../app/stylesheets/application.sass */
 #search input[type='text'] {
   border: 1px solid grey;
   width: 200px;
 }
 
-/* line 32, ../../app/stylesheets/application.sass */
+/* line 35, ../../app/stylesheets/application.sass */
 #server-url, #number-of-tracks {
   display: none;
 }
 
-/* line 35, ../../app/stylesheets/application.sass */
+/* line 38, ../../app/stylesheets/application.sass */
 #tracks {
   overflow: auto;
   height: 300px;
