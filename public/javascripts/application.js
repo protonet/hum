@@ -2,6 +2,7 @@ head(function() {
   var mySound = null;
   var playing = null;
   var numOfTracks = $('.track').length;
+  var nextTrackIndex = 0;
 
   soundManager.onready(function() {
     $(".track a").click(function(e) {
@@ -20,6 +21,7 @@ head(function() {
         onjustbeforefinish: nextTrack
       });
       $("#player .play a").text('Pause');
+      $('#tracks').animate({scrollTop: $("#track-" + id).offset().top},'fast');
       mySound.play();
     });
 
@@ -33,8 +35,13 @@ head(function() {
     });
 
     function nextTrack() {
-      nextTrackObj = Math.floor(Math.random()*numOfTracks)
-      $('.track').slice(nextTrackObj,(nextTrackObj+1)).find('.number a').click();
+      if ($("#player .random input:checked").length >= 1) {
+        nextTrackIndex = Math.floor(Math.random()*numOfTracks);
+      } else {
+        nextTrackIndex = nextTrackIndex + 1
+      }
+
+      $('.track').slice(nextTrackIndex,(nextTrackIndex+1)).find('.number a').click();
     }
 
     function playPauseToggle() {

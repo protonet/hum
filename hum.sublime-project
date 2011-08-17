@@ -32,49 +32,18 @@
 	"buffers":
 	[
 		{
-			"file": "/home/philip/Projects/hum/app/app.rb",
+			"file": "/home/philip/Projects/hum/public/javascripts/application.js",
 			"settings":
 			{
-				"buffer_size": 261,
+				"buffer_size": 1496,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"file": "/home/philip/Projects/melody/track.rb",
 			"settings":
 			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/philip/Projects/hum/app/views/site/index.haml",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/philip/Projects/hum/config.ru",
-			"settings":
-			{
-				"buffer_size": 206,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/philip/Projects/hum/Gemfile",
-			"settings":
-			{
-				"buffer_size": 1213,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/philip/Projects/five-things/Gemfile",
-			"settings":
-			{
-				"buffer_size": 1440,
+				"buffer_size": 1525,
 				"line_ending": "Unix"
 			}
 		},
@@ -82,39 +51,31 @@
 			"file": "/home/philip/Projects/melody/Gemfile",
 			"settings":
 			{
-				"buffer_size": 477,
+				"buffer_size": 329,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/philip/Projects/hum/.components",
+			"file": "/home/philip/Projects/hum/app/views/application/index.html.haml",
 			"settings":
 			{
-				"buffer_size": 94,
+				"buffer_size": 620,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/philip/Projects/hum/app/models/hum_config.rb",
+			"file": "/home/philip/Projects/hum/app/helpers/application_helper.rb",
 			"settings":
 			{
-				"buffer_size": 131,
+				"buffer_size": 509,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/philip/Projects/hum/config/database.rb",
+			"file": "/home/philip/Projects/hum/app/controllers/application_controller.rb",
 			"settings":
 			{
-				"buffer_size": 724,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/philip/Projects/hum/app/views/layouts/application.html.erb",
-			"settings":
-			{
-				"buffer_size": 484,
+				"buffer_size": 540,
 				"line_ending": "Unix"
 			}
 		}
@@ -142,6 +103,16 @@
 	},
 	"file_history":
 	[
+		"/home/philip/Projects/hum/app/views/layouts/application.html.erb",
+		"/home/philip/Projects/hum/config/database.rb",
+		"/home/philip/Projects/hum/app/models/hum_config.rb",
+		"/home/philip/Projects/hum/.components",
+		"/home/philip/Projects/melody/Gemfile",
+		"/home/philip/Projects/five-things/Gemfile",
+		"/home/philip/Projects/hum/app/app.rb",
+		"/home/philip/Projects/hum/app/views/site/index.haml",
+		"/home/philip/Projects/hum/config.ru",
+		"/home/philip/Projects/hum/Gemfile",
 		"/home/philip/Projects/hum/app/views/layouts/test.html",
 		"/home/philip/test.html",
 		"/home/philip/Projects/melody/app/controllers/tracks.rb",
@@ -164,7 +135,6 @@
 		"/home/philip/Projects/five-things/public/javascripts/application.js",
 		"/home/philip/Projects/five-things/app/models/user.rb",
 		"/home/philip/Projects/five-things/config/environments/development.rb",
-		"/home/philip/Projects/five-things/Gemfile",
 		"/home/philip/Projects/five-things/config/application.rb",
 		"/home/philip/.config/sublime-text-2/Packages/User/Global.sublime-settings",
 		"/home/philip/.config/sublime-text-2/Packages/User/Base File.sublime-settings",
@@ -253,23 +223,51 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/philip/Projects/hum/app/app.rb",
+					"file": "/home/philip/Projects/hum/public/javascripts/application.js",
 					"settings":
 					{
-						"buffer_size": 261,
+						"buffer_size": 1496,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								139,
-								139
+								746,
+								746
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0,
+						"translation.y": 102,
+						"zoom_level": 1
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/philip/Projects/melody/track.rb",
+					"settings":
+					{
+						"buffer_size": 1525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								326,
+								332
 							]
 						],
 						"settings":
@@ -285,37 +283,11 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"default_dir": "/home/philip/Projects/hum/app/views",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 2,
-					"file": "/home/philip/Projects/hum/app/views/site/index.haml",
+					"file": "/home/philip/Projects/melody/Gemfile",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 329,
 						"regions":
 						{
 						},
@@ -328,7 +300,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Haml.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0,
 						"translation.y": 0,
@@ -338,23 +310,25 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/home/philip/Projects/hum/config.ru",
+					"file": "/home/philip/Projects/hum/app/views/application/index.html.haml",
 					"settings":
 					{
-						"buffer_size": 206,
+						"buffer_size": 620,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								620,
+								620
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Ruby/Haml.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0,
 						"translation.y": 0,
@@ -364,23 +338,25 @@
 				},
 				{
 					"buffer": 4,
-					"file": "/home/philip/Projects/hum/Gemfile",
+					"file": "/home/philip/Projects/hum/app/helpers/application_helper.rb",
 					"settings":
 					{
-						"buffer_size": 1213,
+						"buffer_size": 509,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								86,
-								86
+								453,
+								453
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0,
 						"translation.y": 0,
@@ -390,161 +366,23 @@
 				},
 				{
 					"buffer": 5,
-					"file": "/home/philip/Projects/five-things/Gemfile",
+					"file": "/home/philip/Projects/hum/app/controllers/application_controller.rb",
 					"settings":
 					{
-						"buffer_size": 1440,
+						"buffer_size": 540,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								1440
+								243,
+								243
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/philip/Projects/melody/Gemfile",
-					"settings":
-					{
-						"buffer_size": 477,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								477
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/home/philip/Projects/hum/.components",
-					"settings":
-					{
-						"buffer_size": 94,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								72,
-								72
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/home/philip/Projects/hum/app/models/hum_config.rb",
-					"settings":
-					{
-						"buffer_size": 131,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								117,
-								117
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/home/philip/Projects/hum/config/database.rb",
-					"settings":
-					{
-						"buffer_size": 724,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								507,
-								507
-							],
-							[
-								609,
-								609
-							],
-							[
-								710,
-								710
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage"
-						},
-						"translation.x": 0,
-						"translation.y": 0,
-						"zoom_level": 1
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "/home/philip/Projects/hum/app/views/layouts/application.html.erb",
-					"settings":
-					{
-						"buffer_size": 484,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								484,
-								484
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -599,6 +437,14 @@
 		"selected_items":
 		[
 			[
+				"index",
+				"app/views/application/index.html.haml"
+			],
+			[
+				"appjs",
+				"public/javascripts/application.js"
+			],
+			[
 				"applicon",
 				"app/controllers/application_controller.rb"
 			],
@@ -613,10 +459,6 @@
 			[
 				"thing",
 				"app/models/thing.rb"
-			],
-			[
-				"index",
-				"app/views/things/index.html.haml"
 			],
 			[
 				"to",

@@ -26,8 +26,5 @@
       = "#{@listing.size} Tracks"
       .clear
 
-    - @listing.each do |track|
-      %div{:id => "track-#{track['id']}", :class => 'track'}
-        .number= link_to track['id'], '#', 'data-track-id' => track['id'], 'data-track-name' => track['filename']
-        .name= link_to track['filename'], '#', 'data-track-id' => track['id'], 'data-track-name' => track['filename']
-        .clear
+    - @listing.each do |id, track|
+      = track_links(id, track)

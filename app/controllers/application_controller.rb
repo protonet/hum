@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def reload_tracks
     reload
-    render :action => 'index'
+    redirect_to :action => 'index'
   end
 
 protected
