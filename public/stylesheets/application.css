@@ -56,4 +56,9 @@ body {
   overflow: auto;
   height: 300px;
   width: 800px;
+  position: relative;
+}
+/* line 44, ../../app/stylesheets/application.sass */
+#tracks .playing {
+  background-color: yellow;
 }

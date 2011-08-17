@@ -3,25 +3,30 @@ head(function() {
   var playing = null;
   var numOfTracks = $('.track').length;
   var nextTrackIndex = 0;
+  var globalVolume = 100;
 
   soundManager.onready(function() {
     $(".track a").click(function(e) {
+      e.preventDefault();
+
       soundManager.stopAll();
       $("#player .play a").text('Play');
+      $(".track").removeClass('playing');
 
-      e.preventDefault();
       id = $(this).attr('data-track-id');
+      $('#track-' + id).addClass('playing');
       playing = 'Track ' + id
       track_name = $(this).attr('data-track-name')
       server = $("#server-url").text();
       mySound = soundManager.createSound({
         id: playing,
         url: server + '/' + id,
-        volume: 50,
+        volume: globalVolume,
         onjustbeforefinish: nextTrack
       });
       $("#player .play a").text('Pause');
-      $('#tracks').animate({scrollTop: $("#track-" + id).offset().top},'fast');
+      $('#tracks').animate({scrollTop: $(".playing").prop("offsetTop")},'fast');
+      $("#player #volume").text(mySound.volume);
       mySound.play();
     });
 
@@ -30,13 +35,37 @@ head(function() {
       soundManager.togglePause(playing);
     });
 
+    $("#player .prev a").click(function() {
+      alert("This doesn't do anything yet. Come back later");
+    });
+
     $("#player .next a").click(function() {
       nextTrack();
     });
 
+    $("#player #vol-up a").click(function() {
+      newVolume = mySound.volume + 10;
+      if (newVolume > 100) newVolume = 100;
+      if (mySound != null) {
+        mySound.setVolume(newVolume);
+        $("#player #volume").text(mySound.volume);
+        globalVolume = mySound.volume;
+      }
+    });
+
+    $("#player #vol-down a").click(function() {
+      newVolume = mySound.volume - 10;
+      if (newVolume < 0) newVolume = 0;
+      if (mySound != null) {
+        mySound.setVolume(newVolume);
+        $("#player #volume").text(mySound.volume);
+        globalVolume = mySound.volume;
+      }
+    });
+
     function nextTrack() {
-      if ($("#player .random input:checked").length >= 1) {
-        nextTrackIndex = Math.floor(Math.random()*numOfTracks);
+      if (isRandomPlay()) {
+        nextTrackIndex = randomTackNumber();
       } else {
         nextTrackIndex = nextTrackIndex + 1
       }
@@ -49,6 +78,18 @@ head(function() {
         $("#player .play a").text('Pause');
       } else {
         $("#player .play a").text('Play');
+      }
+    }
+
+    function randomTackNumber() {
+      return Math.floor(Math.random()*numOfTracks);
+    }
+
+    function isRandomPlay() {
+      if ($("#player .random input:checked").length >= 1) {
+        return true;
+      } else {
+        return false;
       }
     }
 

@@ -10,9 +10,12 @@
 
     = javascript_include_tag('soundmanager2')
     :javascript
+      soundManager.debugFlash = false;
       soundManager.url = "/swf/";
-      soundManager.debugFlash = true;
+      soundManager.flashLoadTimeout = 5000;
+      soundManager.waitForWindowLoad = false
     = javascript_include_tag('head.min')
     = headjs_include_tag('jquery.min', 'application', :cache => 'bundle')
   %body
     = yield
+
