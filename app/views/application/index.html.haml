@@ -1,8 +1,14 @@
 = link_to 'Reload Assests', reload_assets_path
 = link_to 'Fetch Tracks From Server Again', reload_tracks_path
-#server-url= HumConfig.conf.server
--if @listing
+
+= form_tag('#', :id => 'server-form') do
+  = label_tag "Server"
+  = text_field_tag "server_url", HumConfig.conf.server
+  = submit_tag "set"
+
+- if @listing
   #number-of-tracks= @listing.size
+
 #player
   .prev= link_to 'Prev', '#'
   .play= link_to 'Play', '#'
@@ -18,6 +24,8 @@
   #vol-up= link_to 'Vol Up', '#'
   #vol-down= link_to 'Vol Down', '#'
   #volume
+  #currently-playing
+    = link_to 'Jump to currently playing', '#'
 
 #search
   = label_tag :search

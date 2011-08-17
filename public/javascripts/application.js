@@ -4,6 +4,19 @@ head(function() {
   var numOfTracks = $('.track').length;
   var nextTrackIndex = 0;
   var globalVolume = 100;
+  var mySound = null;
+
+  $("#server-form input[type='submit']").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: '/server_url',
+        data: { server_url: getServerUrl() },
+        success: function(data) {
+          setServerUrl(data);
+          alert("Saved! " + data);
+        }
+    });
+  });
 
   soundManager.onready(function() {
     $(".track a").click(function(e) {
@@ -17,7 +30,7 @@ head(function() {
       $('#track-' + id).addClass('playing');
       playing = 'Track ' + id
       track_name = $(this).attr('data-track-name')
-      server = $("#server-url").text();
+      server = getServerUrl();
       mySound = soundManager.createSound({
         id: playing,
         url: server + '/' + id,
@@ -25,14 +38,18 @@ head(function() {
         onjustbeforefinish: nextTrack
       });
       $("#player .play a").text('Pause');
-      $('#tracks').animate({scrollTop: $(".playing").prop("offsetTop")},'fast');
       $("#player #volume").text(mySound.volume);
+      jumpToCurrentlyPlaying();
       mySound.play();
     });
 
     $("#player .play a").click(function() {
-      playPauseToggle();
-      soundManager.togglePause(playing);
+      if (mySound == null) {
+        nextTrack();
+      } else {
+        playPauseToggle();
+        soundManager.togglePause(playing);
+      }
     });
 
     $("#player .prev a").click(function() {
@@ -41,6 +58,10 @@ head(function() {
 
     $("#player .next a").click(function() {
       nextTrack();
+    });
+
+    $("#player #currently-playing a").click(function() {
+      jumpToCurrentlyPlaying();
     });
 
     $("#player #vol-up a").click(function() {
@@ -62,37 +83,48 @@ head(function() {
         globalVolume = mySound.volume;
       }
     });
-
-    function nextTrack() {
-      if (isRandomPlay()) {
-        nextTrackIndex = randomTackNumber();
-      } else {
-        nextTrackIndex = nextTrackIndex + 1
-      }
-
-      $('.track').slice(nextTrackIndex,(nextTrackIndex+1)).find('.number a').click();
-    }
-
-    function playPauseToggle() {
-      if ($("#player .play a").text() == 'Play') {
-        $("#player .play a").text('Pause');
-      } else {
-        $("#player .play a").text('Play');
-      }
-    }
-
-    function randomTackNumber() {
-      return Math.floor(Math.random()*numOfTracks);
-    }
-
-    function isRandomPlay() {
-      if ($("#player .random input:checked").length >= 1) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
   });
+
+  function nextTrack() {
+    if (isRandomPlay()) {
+      nextTrackIndex = randomTackNumber();
+    } else {
+      nextTrackIndex = nextTrackIndex + 1
+    }
+
+    $('.track').slice(nextTrackIndex,(nextTrackIndex+1)).find('.number a').click();
+  }
+
+  function jumpToCurrentlyPlaying() {
+    $('#tracks').animate({scrollTop: $(".playing").prop("offsetTop")},'fast');
+  }
+
+  function playPauseToggle() {
+    if ($("#player .play a").text() == 'Play') {
+      $("#player .play a").text('Pause');
+    } else {
+      $("#player .play a").text('Play');
+    }
+  }
+
+  function randomTackNumber() {
+    return Math.floor(Math.random()*numOfTracks);
+  }
+
+  function isRandomPlay() {
+    if ($("#player .random input:checked").length >= 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function getServerUrl() {
+    return $("#server-form #server_url").attr("value");
+  }
+
+  function setServerUrl(data) {
+    $("#server-form #server_url").attr("value", data)
+  }
 });
 

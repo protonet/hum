@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
     redirect_to :action => 'index'
   end
 
+  def server_url
+    hum_config = HumConfig.conf
+    hum_config.server = params[:server_url]
+    hum_config.save
+    expire_page :action => 'index'
+    render :text => hum_config.server, :layout => false
+  end
+
 protected
 
   def load_tracks
