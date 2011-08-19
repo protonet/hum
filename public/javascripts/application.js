@@ -9,40 +9,16 @@ head(function() {
   $("#server-form input[type='submit']").click(function(e) {
     e.preventDefault();
     $.ajax({
-        url: '/server_url',
-        data: { server_url: getServerUrl() },
-        success: function(data) {
-          setServerUrl(data);
-          alert("Saved! " + data);
-        }
+      url: '/server_url',
+      data: { server_url: getServerUrl() },
+      success: function(data) {
+        setServerUrl(data);
+        alert("Saved! " + data);
+      }
     });
   });
 
   soundManager.onready(function() {
-    $(".track a").click(function(e) {
-      e.preventDefault();
-
-      soundManager.stopAll();
-      $("#player .play a").text('Play');
-      $(".track").removeClass('playing');
-
-      id = $(this).attr('data-track-id');
-      $('#track-' + id).addClass('playing');
-      playing = 'Track ' + id
-      track_name = $(this).attr('data-track-name')
-      server = getServerUrl();
-      mySound = soundManager.createSound({
-        id: playing,
-        url: server + '/' + id,
-        volume: globalVolume,
-        onjustbeforefinish: nextTrack
-      });
-      $("#player .play a").text('Pause');
-      $("#player #volume").text(mySound.volume);
-      jumpToCurrentlyPlaying();
-      mySound.play();
-    });
-
     $("#player .play a").click(function() {
       if (mySound == null) {
         nextTrack();
@@ -85,6 +61,36 @@ head(function() {
     });
   });
 
+  function playTrack(track_id) {
+    soundManager.stopAll();
+    $("#player .play a").text('Play');
+
+    var trackInfo = null;
+
+    $.ajax({
+      url: '/show',
+      data: { id: track_id },
+      success: function(data) {
+        trackInfo = data;
+      }
+    });
+
+    playing = trackInfo['name']
+
+    mySound = soundManager.createSound({
+      id: playing,
+      url: getServerUrl() + '/' + id,
+      volume: globalVolume,
+      onjustbeforefinish: nextTrack
+    });
+
+    $("#player .play a").text('Pause');
+    $("#player #volume").text(mySound.volume);
+
+    jumpToCurrentlyPlaying();
+    mySound.play();
+  }
+
   function nextTrack() {
     if (isRandomPlay()) {
       nextTrackIndex = randomTackNumber();
@@ -92,7 +98,7 @@ head(function() {
       nextTrackIndex = nextTrackIndex + 1
     }
 
-    $('.track').slice(nextTrackIndex,(nextTrackIndex+1)).find('.number a').click();
+    playTrack(nextTrackIndex);
   }
 
   function jumpToCurrentlyPlaying() {

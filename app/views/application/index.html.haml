@@ -6,8 +6,7 @@
   = text_field_tag "server_url", HumConfig.conf.server
   = submit_tag "set"
 
-- if @listing
-  #number-of-tracks= @listing.size
+#number-of-tracks= @number_of_tracks
 
 #player
   .prev= link_to 'Prev', '#'
@@ -31,6 +30,12 @@
   = label_tag :search
   = text_field_tag :search
   .clear
+
+#track-info
+  .artist
+  .album
+  .title
+  .filename
 
 #tracks
   - if @listing
