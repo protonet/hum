@@ -35,98 +35,107 @@ div {
   width: 600px;
 }
 /* line 28, ../../app/stylesheets/application.sass */
+#player #number-of-tracks {
+  font-size: 16px;
+  font-weight: bolder;
+}
+/* line 31, ../../app/stylesheets/application.sass */
+#player #number-of-tracks div {
+  float: left;
+}
+/* line 34, ../../app/stylesheets/application.sass */
 #player #controls {
   width: 260px;
   height: 60px;
   margin: 0 auto;
 }
-/* line 32, ../../app/stylesheets/application.sass */
+/* line 38, ../../app/stylesheets/application.sass */
 #player #controls .skip-backwards, #player #controls .seek-backwards, #player #controls .play, #player #controls .seek-forwrds, #player #controls .skip-forwrds {
   float: left;
   width: 50px;
 }
-/* line 36, ../../app/stylesheets/application.sass */
+/* line 42, ../../app/stylesheets/application.sass */
 #player #volume {
   /*border: 1px solid black */
   vertical-align: middle;
   float: right;
   width: 110px;
 }
-/* line 41, ../../app/stylesheets/application.sass */
+/* line 47, ../../app/stylesheets/application.sass */
 #player #volume #vol, #player #volume #vol-controls {
   float: left;
 }
-/* line 43, ../../app/stylesheets/application.sass */
+/* line 49, ../../app/stylesheets/application.sass */
 #player #volume #vol {
   width: 50px;
   height: 100px;
   position: relative;
 }
-/* line 47, ../../app/stylesheets/application.sass */
+/* line 53, ../../app/stylesheets/application.sass */
 #player #volume #vol img {
   position: absolute;
   top: 55%;
   margin-top: -25px;
 }
-/* line 51, ../../app/stylesheets/application.sass */
+/* line 57, ../../app/stylesheets/application.sass */
 #player #volume #volume-level {
   width: 100px;
   text-align: center;
   font-weight: bolder;
   margin: 10px 0;
 }
-/* line 57, ../../app/stylesheets/application.sass */
+/* line 63, ../../app/stylesheets/application.sass */
 #player #track-info {
   font-size: 12px;
   width: 450px;
   /*border: 1px solid black */
   float: left;
 }
-/* line 62, ../../app/stylesheets/application.sass */
+/* line 68, ../../app/stylesheets/application.sass */
 #player #track-info .label, #player #track-info .name {
   float: left;
 }
-/* line 64, ../../app/stylesheets/application.sass */
+/* line 70, ../../app/stylesheets/application.sass */
 #player #track-info .label {
   width: 50px;
   font-weight: bolder;
 }
-/* line 68, ../../app/stylesheets/application.sass */
+/* line 74, ../../app/stylesheets/application.sass */
 #player #track-info .artist, #player #track-info .album, #player #track-info .title, #player #track-info .filename {
   margin: 5px 0;
 }
 
-/* line 71, ../../app/stylesheets/application.sass */
+/* line 77, ../../app/stylesheets/application.sass */
 #search {
   border: 1px solid black;
   margin: 10px;
   width: 350px;
   padding: 10px;
 }
-/* line 76, ../../app/stylesheets/application.sass */
+/* line 82, ../../app/stylesheets/application.sass */
 #search input[type='text'] {
   border: 1px solid grey;
   width: 200px;
 }
 
-/* line 80, ../../app/stylesheets/application.sass */
-#server-url, #number-of-tracks {
+/* line 86, ../../app/stylesheets/application.sass */
+#server-url {
   display: none;
 }
 
-/* line 83, ../../app/stylesheets/application.sass */
+/* line 89, ../../app/stylesheets/application.sass */
 #tracks {
   overflow: auto;
   height: 600px;
   width: 800px;
   position: relative;
 }
-/* line 89, ../../app/stylesheets/application.sass */
+/* line 95, ../../app/stylesheets/application.sass */
 #tracks .playing {
   background-color: yellow;
 }
 
-/* line 93, ../../app/stylesheets/application.sass */
+/* line 99, ../../app/stylesheets/application.sass */
 #server-form input[type='text'] {
   width: 500px;
 }

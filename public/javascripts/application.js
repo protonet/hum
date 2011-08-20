@@ -1,7 +1,7 @@
 head(function() {
   var mySound = null;
   var playing = null;
-  var numOfTracks = parseInt($('#number-of-tracks').text());
+  var numOfTracks = parseInt($('#number-of-tracks .count').text());
   var nextTrackIndex = 0;
   var globalVolume = 100;
   var mySound = null;
