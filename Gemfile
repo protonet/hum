@@ -29,21 +29,22 @@ gem 'compass', ">= 0.11.5"
 gem "headjs-rails"
 gem 'stamp'
 gem 'typhoeus'
+gem 'dalli'
 #gem 'deploy', :git => "git@github.com:protonet/deploy.git", :groups => [:development]
 #gem 'exception_notification'
 
 # Testing
-group :test do
-  gem "libnotify"
-  gem "guard"
-
-  gem 'dm-sweatshop'
-
-  #unit tests
-  gem 'bacon'
-  gem "rr"
-
-  #functional tests
-  gem 'capybara'
-end
+#group :test do
+#  gem "libnotify"
+#  gem "guard"
+#
+#  gem 'dm-sweatshop'
+#
+#  #unit tests
+#  gem 'bacon'
+#  gem "rr"
+#
+#  #functional tests
+#  gem 'capybara'
+#end
 

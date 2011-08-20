@@ -1,4 +1,3 @@
-= link_to 'Reload Assests', reload_assets_path
 = link_to 'Fetch Tracks From Server Again', reload_tracks_path
 
 = form_tag('#', :id => 'server-form') do
@@ -6,13 +5,46 @@
   = text_field_tag "server_url", HumConfig.conf.server
   = submit_tag "set"
 
-#number-of-tracks= @number_of_tracks
+#number-of-tracks= @tracks.size
 
 #player
-  .prev= link_to 'Prev', '#'
-  .play= link_to 'Play', '#'
-  .next= link_to 'Next','#'
+  #volume
+    #vol
+      = image_tag('vol.png')
+      .clear
+    #vol-controls
+      #vol-up= link_to image_tag('vol_up.png'), '#'
+      #vol-down= link_to image_tag('vol_down.png'), '#'
+    .clear
+    #volume-level 100
+
+  #controls
+    .skip-backwards= link_to image_tag('skip_backwards.png'), '#'
+    .seek-backwards= link_to image_tag('seek_backwards.png'), '#'
+    .play= link_to image_tag('play.png'), '#'
+    .seek-forwrds= link_to image_tag('seek_forwards.png'),'#'
+    .skip-forwrds= link_to image_tag('skip_forwards.png'),'#'
+    .clear
+
+  #track-info
+    .artist
+      .label Artist:
+      .name None
+      .clear
+    .album
+      .label Album:
+      .name None
+      .clear
+    .title
+      .label Title:
+      .name None
+      .clear
+    .filename
+      .label File:
+      .name None
+      .clear
   .clear
+
   .random
     = label_tag :random_play
     = check_box_tag :random, '1',true
@@ -20,22 +52,13 @@
     = label_tag :continuous_play
     = check_box_tag :continuous, '1',true
   .clear
-  #vol-up= link_to 'Vol Up', '#'
-  #vol-down= link_to 'Vol Down', '#'
-  #volume
-  #currently-playing
-    = link_to 'Jump to currently playing', '#'
 
 #search
   = label_tag :search
   = text_field_tag :search
   .clear
 
-#track-info
-  .artist
-  .album
-  .title
-  .filename
+
 
 #tracks
   - if @listing

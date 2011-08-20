@@ -1,5 +1,9 @@
 body
   font-size: 12px
+  font-family: arial
+
+div
+  /*border: 1px solid black
 
 .clear
   clear: both
@@ -15,13 +19,54 @@ body
     margin: 5px 10px
 
 #player
-  border: 1px solid black
+  font-size: 18px
+  padding: 20px
+  border: 10px solid black
   margin: 10px
-  width: 350px
-  .prev, .play, .next
+  width: 600px
+
+  #controls
+    width: 260px
+    height: 60px
+    margin: 0 auto
+    .skip-backwards,.seek-backwards,.play,.seek-forwrds,.skip-forwrds
+      float: left
+      width: 50px
+
+  #volume
+    /*border: 1px solid black
+    vertical-align: middle
+    float: right
+    width: 110px
+    #vol, #vol-controls
+      float: left
+    #vol
+      width: 50px
+      height: 100px
+      position: relative
+      img
+        position: absolute
+        top: 55%
+        margin-top: -25px
+    #volume-level
+      width: 100px
+      text-align: center
+      font-weight: bolder
+      margin: 10px 0
+
+  #track-info
+    font-size: 12px
+    width: 450px
+    /*border: 1px solid black
     float: left
-    padding: 5px
-    width: 100px
+    .label, .name
+      float: left
+    .label
+      width: 50px
+      font-weight: bolder
+
+    .artist,.album,.title,.filename
+      margin: 5px 0
 
 #search
   border: 1px solid black
@@ -47,4 +92,3 @@ body
 #server-form
   input[type='text']
     width: 500px
-

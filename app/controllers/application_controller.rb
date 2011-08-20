@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def index
-    @number_of_tracks = Track.count
+    Track.load_tracks unless Track.tracks_loaded?
+    @tracks = Track.tracks
   end
 
   def reload_tracks
@@ -25,3 +26,16 @@ class ApplicationController < ActionController::Base
     expire_page :action => 'index'
     render :text => hum_config.server, :layout => false
   end
+
+  def track
+    tracks = Track.tracks
+    track = tracks[params[:id].to_i]
+
+    respond_to do |format|
+      format.js do
+        puts "TRACK IS #{track.to_json}"
+        render :text => track.to_json, :layout => false
+      end
+    end
+  end
+end

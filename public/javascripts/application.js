@@ -1,7 +1,7 @@
 head(function() {
   var mySound = null;
   var playing = null;
-  var numOfTracks = $('.track').length;
+  var numOfTracks = parseInt($('#number-of-tracks').text());
   var nextTrackIndex = 0;
   var globalVolume = 100;
   var mySound = null;
@@ -19,6 +19,16 @@ head(function() {
   });
 
   soundManager.onready(function() {
+
+    // Player Controls
+    $("#player .skip-backwards a").click(function() {
+      underConstruction();
+    });
+
+    $("#player .seek-backwards a").click(function() {
+      underConstruction();
+    });
+
     $("#player .play a").click(function() {
       if (mySound == null) {
         nextTrack();
@@ -28,13 +38,14 @@ head(function() {
       }
     });
 
-    $("#player .prev a").click(function() {
-      alert("This doesn't do anything yet. Come back later");
+    $("#player .seek-forwrds a").click(function() {
+      underConstruction();
     });
 
-    $("#player .next a").click(function() {
+    $("#player .skip-forwrds a").click(function() {
       nextTrack();
     });
+    // End Player Controls
 
     $("#player #currently-playing a").click(function() {
       jumpToCurrentlyPlaying();
@@ -43,52 +54,63 @@ head(function() {
     $("#player #vol-up a").click(function() {
       newVolume = mySound.volume + 10;
       if (newVolume > 100) newVolume = 100;
-      if (mySound != null) {
-        mySound.setVolume(newVolume);
-        $("#player #volume").text(mySound.volume);
-        globalVolume = mySound.volume;
-      }
+      setVolume(newVolume);
     });
 
     $("#player #vol-down a").click(function() {
       newVolume = mySound.volume - 10;
       if (newVolume < 0) newVolume = 0;
-      if (mySound != null) {
-        mySound.setVolume(newVolume);
-        $("#player #volume").text(mySound.volume);
-        globalVolume = mySound.volume;
-      }
+      setVolume(newVolume);
     });
   });
 
+  function setVolume(volumeValue) {
+    if (mySound != null) {
+      mySound.setVolume(newVolume);
+      $("#player #volume-level").text(mySound.volume);
+      globalVolume = mySound.volume;
+    }
+  }
+
   function playTrack(track_id) {
     soundManager.stopAll();
-    $("#player .play a").text('Play');
-
-    var trackInfo = null;
+    $("#player .play a").html("<img alt='play' src='/images/play.png'>");
 
     $.ajax({
-      url: '/show',
-      data: { id: track_id },
-      success: function(data) {
-        trackInfo = data;
+      url: '/track/' + track_id,
+      dataType: 'json',
+      data: {format: 'js'},
+      success: function(trackInfo) {
+        playingName = trackInfo['artist'] + ' - ' + trackInfo['title'];
+        if (playingName == '') playingName = trackInfo['filename']
+
+        setTrackInfo(trackInfo)
+
+        mySound = soundManager.createSound({
+          id: playingName,
+          url: getServerUrl() + '/' + track_id,
+          volume: globalVolume,
+          onjustbeforefinish: nextTrack
+        });
+
+        $("#player .play a").html("<img alt='pause' src='/images/pause.png'>");
+        $("#player #volume-level").text(mySound.volume);
+
+        jumpToCurrentlyPlaying();
+        mySound.play();
       }
     });
+  }
 
-    playing = trackInfo['name']
+  function underConstruction() {
+    alert("This doesn't do anything yet. Come back later");
+  }
 
-    mySound = soundManager.createSound({
-      id: playing,
-      url: getServerUrl() + '/' + id,
-      volume: globalVolume,
-      onjustbeforefinish: nextTrack
-    });
-
-    $("#player .play a").text('Pause');
-    $("#player #volume").text(mySound.volume);
-
-    jumpToCurrentlyPlaying();
-    mySound.play();
+  function setTrackInfo(trackInfo) {
+    $("#track-info .artist .name").html(trackInfo['artist']);
+    $("#track-info .album .name").html(trackInfo['album']);
+    $("#track-info .title .name").html(trackInfo['title']);
+    $("#track-info .filename .name").html(trackInfo['filename']);
   }
 
   function nextTrack() {
@@ -107,9 +129,9 @@ head(function() {
 
   function playPauseToggle() {
     if ($("#player .play a").text() == 'Play') {
-      $("#player .play a").text('Pause');
+      $("#player .play a").text("<img alt='pause' src='/images/pause.png'>");
     } else {
-      $("#player .play a").text('Play');
+      $("#player .play a").text("<img alt='play' src='/images/play.png'>");
     }
   }
 

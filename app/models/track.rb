@@ -1,16 +1,25 @@
 class Track
 
-  include DataMapper::Resource
+  attr_accessor :filename
+  attr_accessor :artist
+  attr_accessor :album
+  attr_accessor :title
 
-  property :id,       Serial
-  property :index_number, String, :index => true
-  property :filename,     Text
-  property :artist,       String, :length => 0..255
-  property :album,        String, :length => 0..255
-  property :title,        String, :length => 0..255
+  TRACKS_CACHE_KEY = "TRACKS_CACHE_KEY"
 
   class << self
+
+    def tracks_loaded?
+      Rails.cache.read(Track::TRACKS_CACHE_KEY).nil?
+    end
+
+    def tracks
+      Rails.cache.read(Track::TRACKS_CACHE_KEY)
+    end
+
     def fetch_tracks
+      ensure_tmp
+
       File.open(tracks_file, 'w') do |file|
         parsed_json = JSON.parse(HumConfig.get_listing)
         file.write(parsed_json.to_json)
@@ -24,42 +33,43 @@ class Track
 
       File.open(tracks_file, 'r') do |file|
         json_contents = file.read
-
         parsed_json = JSON.parse(json_contents)
-
         parsed_json.each do |index, track_info|
           begin
             track = Track.new
-            track.index_number = index.to_s
-            track.filename     = track_info['filename']
-            track.artist       = track_info['artist']
-            track.album        = track_info['album']
-            track.title        = track_info['title']
-            tracks << track
+
+            track.filename = track_info['filename']
+            track.artist   = track_info['artist']
+            track.album    = track_info['album']
+            track.title    = track_info['title']
+
+            tracks.insert(index.to_i, track)
           rescue Exception => e
             puts "Error: #{track_info.inspect} #{e}"
           end
         end
       end
 
-      repository(:default).adapter.select('DELETE FROM tracks')
+      Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)
+      tracks
+    end
 
-      start_time =  Time.now
-      tracks.each_with_index do |track,index|
-        begin
-          track.save
-          puts "Track save #{index}"
-        rescue Exception => e
-          puts "Error #{e}"
-        end
+
+    def ensure_tmp
+      unless File.exist?(tmp_dir)
+        require 'fileutils'
+        FileUtils.mkdir_p (tmp_dir)
       end
-      end_time = Time.now
-      puts "TIME: #{start_time} --> #{end_time}"
+    end
+
+    def tmp_dir
+      @tmp_dir ||= "#{Rails.root}/tmp"
     end
 
     def tracks_file
-      @tracks_file ||= "#{Rails.root}/tmp/tracks.json"
+      @tracks_file ||= "#{tmp_dir}/tracks.json"
     end
+
   end
 
 end
