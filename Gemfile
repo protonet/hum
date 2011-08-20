@@ -29,7 +29,7 @@ gem 'compass', ">= 0.11.5"
 gem "headjs-rails"
 gem 'stamp'
 gem 'typhoeus'
-gem 'dalli'
+gem 'memcached'
 #gem 'deploy', :git => "git@github.com:protonet/deploy.git", :groups => [:development]
 #gem 'exception_notification'
 

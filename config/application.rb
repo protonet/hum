@@ -10,6 +10,9 @@ require 'dm-rails/session_store'
 # require 'active_resource/railtie'
 # require 'rails/test_unit/railtie'
 
+require 'memcached'
+MEMCACHED = Memcached.new("localhost:11211")
+
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
