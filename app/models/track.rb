@@ -10,11 +10,11 @@ class Track
   class << self
 
     def tracks_loaded?
-      MEMCACHED.get(Track::TRACKS_CACHE_KEY).nil?
+      Rails.cache.read(Track::TRACKS_CACHE_KEY).nil?
     end
 
     def tracks
-      MEMCACHED.get(Track::TRACKS_CACHE_KEY) || []
+      Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
     end
 
     def fetch_tracks
@@ -50,7 +50,7 @@ class Track
         end
       end
 
-      MEMCACHED.set(Track::TRACKS_CACHE_KEY, tracks)
+      Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)
       tracks
     end
 
