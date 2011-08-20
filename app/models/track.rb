@@ -14,7 +14,7 @@ class Track
     end
 
     def tracks
-      Rails.cache.read(Track::TRACKS_CACHE_KEY)
+      Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
     end
 
     def fetch_tracks
