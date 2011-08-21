@@ -43,8 +43,12 @@ head(function() {
       if (mySound == null) {
         nextTrack();
       } else {
-        playPauseToggle();
-        soundManager.togglePause(playing);
+        mySound.togglePause();
+        if (mySound.paused) {
+          setPlayState();
+        } else {
+          setPauseState();
+        }
       }
     });
 
@@ -59,12 +63,7 @@ head(function() {
 
     $(".track a").live('click', function(e) {
       e.preventDefault();
-      alert("PLAY TRACK " + $(this).attr('data-track-id'));
       playTrack($(this).attr('data-track-id'));
-    });
-
-    $("#player #currently-playing a").click(function() {
-      jumpToCurrentlyPlaying();
     });
 
     $("#player #vol-up a").click(function() {
@@ -101,18 +100,18 @@ head(function() {
         if (playingName == '') playingName = trackInfo['filename']
 
         setTrackInfo(trackInfo)
-
+        playing = playingName;
         mySound = soundManager.createSound({
           id: playingName,
           url: getServerUrl() + '/' + track_id,
           volume: globalVolume,
           onjustbeforefinish: nextTrack
+          //ondataerror: alert("THERE HAS BEEN A DATA ERROR")
         });
 
         $("#player .play a").html("<img alt='pause' src='/images/pause.png'>");
         $("#player #volume-level").text(mySound.volume);
 
-        jumpToCurrentlyPlaying();
         mySound.play();
       }
     });
@@ -139,16 +138,12 @@ head(function() {
     playTrack(nextTrackIndex);
   }
 
-  function jumpToCurrentlyPlaying() {
-    $('#tracks').animate({scrollTop: $(".playing").prop("offsetTop")},'fast');
+  function setPlayState() {
+    $("#player .play a").html("<img alt='play' src='/images/play.png'>");
   }
 
-  function playPauseToggle() {
-    if ($("#player .play a").text() == 'Play') {
-      $("#player .play a").text("<img alt='pause' src='/images/pause.png'>");
-    } else {
-      $("#player .play a").text("<img alt='play' src='/images/play.png'>");
-    }
+  function setPauseState() {
+    $("#player .play a").html("<img alt='pause' src='/images/pause.png'>");
   }
 
   function randomTackNumber() {
