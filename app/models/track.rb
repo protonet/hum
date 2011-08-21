@@ -1,5 +1,6 @@
 class Track
 
+  attr_accessor :id
   attr_accessor :filename
   attr_accessor :artist
   attr_accessor :album
@@ -42,16 +43,36 @@ class Track
             track.artist   = track_info['artist']
             track.album    = track_info['album']
             track.title    = track_info['title']
+            track.id       = index.to_i
 
-            tracks.insert(index.to_i, track)
+            tracks.insert(track.id, track)
           rescue Exception => e
-            puts "Error: #{track_info.inspect} #{e}"
+            Rails.logger.error "Error: #{track_info.inspect} #{e}"
           end
         end
       end
 
       Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)
       tracks
+    end
+
+    def search(phrase)
+      regex = /#{phrase}/i
+      tracks = Track.tracks
+      search_result = tracks.select do |track|
+        begin
+          track &&
+            (regex =~ track.filename ||
+              regex =~ track.artist ||
+              regex =~ track.album ||
+              regex =~ track.title)
+        rescue Exception => e
+          Rails.logger.error "Error: #{e}"
+          nil
+        end
+      end
+
+      search_result || []
     end
 
 
@@ -70,6 +91,24 @@ class Track
       @tracks_file ||= "#{tmp_dir}/tracks.json"
     end
 
+  end
+
+  def display_name
+    return @display_name if @display_name
+    name = []
+    name << album
+    name << artist
+
+    unless name.select(&:present?).empty?
+      name << (title.present? ? title : filename.split('/').last)
+    else
+      name << title
+    end
+
+    name = name.select(&:present?)
+
+    @display_name = name.empty? ? filename : name.join(' - ')
+    @display_name
   end
 
 end

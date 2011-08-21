@@ -18,6 +18,16 @@ head(function() {
     });
   });
 
+  $("#search-form input[type='submit']").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/search/' + $("#search-form #search").attr('value'),
+      success: function(data) {
+        $("#search .results").html(data);
+      }
+    });
+  });
+
   soundManager.onready(function() {
 
     // Player Controls
@@ -46,6 +56,12 @@ head(function() {
       nextTrack();
     });
     // End Player Controls
+
+    $(".track a").live('click', function(e) {
+      e.preventDefault();
+      alert("PLAY TRACK " + $(this).attr('data-track-id'));
+      playTrack($(this).attr('data-track-id'));
+    });
 
     $("#player #currently-playing a").click(function() {
       jumpToCurrentlyPlaying();

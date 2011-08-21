@@ -33,9 +33,13 @@ class ApplicationController < ActionController::Base
 
     respond_to do |format|
       format.js do
-        puts "TRACK IS #{track.to_json}"
         render :text => track.to_json, :layout => false
       end
     end
+  end
+
+  def search
+    tracks = Track.search(params['term'])
+    render :partial => 'tracks', :locals => {:tracks => tracks}
   end
 end

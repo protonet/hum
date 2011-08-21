@@ -5,70 +5,69 @@
   = text_field_tag "server_url", HumConfig.conf.server
   = submit_tag "set"
 
+#previous-tracks
+  %span Previous Tracks
+  .clear
 
-
-#player
-  #volume
-    #vol
-      = image_tag('vol.png')
+#center
+  #player
+    #volume
+      #vol
+        = image_tag('vol.png')
+        .clear
+      #vol-controls
+        #vol-up= link_to image_tag('vol_up.png'), '#'
+        #vol-down= link_to image_tag('vol_down.png'), '#'
       .clear
-    #vol-controls
-      #vol-up= link_to image_tag('vol_up.png'), '#'
-      #vol-down= link_to image_tag('vol_down.png'), '#'
+      #volume-level 100
+
+    #number-of-tracks
+      .text Num Tracks: &nbsp;
+      .count= @tracks.size
+    #controls
+      .skip-backwards= link_to image_tag('skip_backwards.png'), '#'
+      .seek-backwards= link_to image_tag('seek_backwards.png'), '#'
+      .play= link_to image_tag('play.png'), '#'
+      .seek-forwrds= link_to image_tag('seek_forwards.png'),'#'
+      .skip-forwrds= link_to image_tag('skip_forwards.png'),'#'
+      .clear
+
+    #track-info
+      .artist
+        .label Artist:
+        .name None
+        .clear
+      .album
+        .label Album:
+        .name None
+        .clear
+      .title
+        .label Title:
+        .name None
+        .clear
+      .filename
+        .label File:
+        .name None
+        .clear
     .clear
-    #volume-level 100
 
-  #number-of-tracks
-    .text Num Tracks: &nbsp;
-    .count= @tracks.size
-  #controls
-    .skip-backwards= link_to image_tag('skip_backwards.png'), '#'
-    .seek-backwards= link_to image_tag('seek_backwards.png'), '#'
-    .play= link_to image_tag('play.png'), '#'
-    .seek-forwrds= link_to image_tag('seek_forwards.png'),'#'
-    .skip-forwrds= link_to image_tag('skip_forwards.png'),'#'
+    .random
+      = label_tag :random_play
+      = check_box_tag :random, '1',true
+    .continuous
+      = label_tag :continuous_play
+      = check_box_tag :continuous, '1',true
     .clear
 
-  #track-info
-    .artist
-      .label Artist:
-      .name None
-      .clear
-    .album
-      .label Album:
-      .name None
-      .clear
-    .title
-      .label Title:
-      .name None
-      .clear
-    .filename
-      .label File:
-      .name None
-      .clear
+  #search
+    = form_tag('#', :id => 'search-form') do
+      = label_tag :search
+      = text_field_tag :search
+      = submit_tag :search
+    .clear
+
+    .results
+
+#queue-tracks
+  %span Queue
   .clear
-
-  .random
-    = label_tag :random_play
-    = check_box_tag :random, '1',true
-  .continuous
-    = label_tag :continuous_play
-    = check_box_tag :continuous, '1',true
-  .clear
-
-#search
-  = label_tag :search
-  = text_field_tag :search
-  .clear
-
-
-
-#tracks
-  - if @listing
-    %div
-      = "#{@listing.size} Tracks"
-
-      .clear
-    - @listing.each do |id, track|
-      = track_links(id, track)
-

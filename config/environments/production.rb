@@ -47,5 +47,5 @@ Hum::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.cache_store = :dalli_store, {:value_max_bytes => 32_000_000}
+  config.cache_store = :dalli_store, '127.0.0.1', {:value_max_bytes => 32_000_000}
 end
