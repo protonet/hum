@@ -96,11 +96,19 @@ head(function() {
       dataType: 'json',
       data: {format: 'js'},
       success: function(trackInfo) {
-        playingName = trackInfo['artist'] + ' - ' + trackInfo['title'];
-        if (playingName == '') playingName = trackInfo['filename']
+
+        if (trackInfo['artist'] != '' || trackInfo['title'] != '') {
+          playing = trackInfo['artist']
+          if (playing != '') ' - '
+          playing =  playing + trackInfo['album']
+          if (playing != '') ' - '
+          playing =  playing + trackInfo['title'];
+        } else {
+          playingName = trackInfo['filename']
+        }
 
         setTrackInfo(trackInfo)
-        playing = playingName;
+
         mySound = soundManager.createSound({
           id: playingName,
           url: getServerUrl() + '/' + track_id,
