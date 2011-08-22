@@ -99,10 +99,14 @@ head(function() {
 
         if (trackInfo['artist'] != '' || trackInfo['title'] != '') {
           playing = trackInfo['artist']
-          if (playing != '') ' - '
-          playing =  playing + trackInfo['album']
-          if (playing != '') ' - '
-          playing =  playing + trackInfo['title'];
+
+          if (playing != '') playing += ' - ';
+
+          playing +=  trackInfo['album']
+
+          if (playing != '') playing += ' - ';
+
+          playing += trackInfo['title'];
         } else {
           playing = trackInfo['filename']
         }
