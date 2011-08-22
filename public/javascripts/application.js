@@ -1,10 +1,34 @@
+var timmer = null;
+var mySound = null;
+var playing = null;
+var numOfTracks = parseInt($('#number-of-tracks .count').text());
+var nextTrackIndex = 0;
+var globalVolume = 100;
+
+function displayCurrentTime() {
+  if (mySound != null && timmer != null) {
+    base_unit = (mySound.position / 1000);
+    minutes = Math.floor((base_unit / 60))
+    seconds = Math.round(base_unit % 60);
+    current_time = minutes + "." + seconds
+
+    overall_time = "";
+
+    if (mySound.loaded) {
+      base_unit = (mySound.duration / 1000);
+      minutes = Math.floor((base_unit / 60))
+      seconds = Math.round(base_unit % 60);
+
+      overall_time = " / " + minutes + "." + seconds
+    }
+
+    $("#player #time").text(current_time + overall_time);
+  }
+
+  timmer = setTimeout("displayCurrentTime()",1000);
+}
+
 head(function() {
-  var mySound = null;
-  var playing = null;
-  var numOfTracks = parseInt($('#number-of-tracks .count').text());
-  var nextTrackIndex = 0;
-  var globalVolume = 100;
-  var mySound = null;
 
   $("#server-form input[type='submit']").click(function(e) {
     e.preventDefault();
@@ -95,10 +119,11 @@ head(function() {
     }
   }
 
+
+
   function playTrack(track_id) {
-    if (mySound != null) {
-      mySound.destruct();
-    }
+    if (mySound != null) mySound.destruct();
+    if (timmer != null) clearTimeout(timmer);
 
     $("#player .play a").html("<img alt='play' src='/images/play.png'>");
 
@@ -136,9 +161,13 @@ head(function() {
         $("#player #volume-level").text(mySound.volume);
 
         mySound.play();
+
+        timmer = setTimeout("displayCurrentTime()",1000);
       }
     });
   }
+
+
 
   function underConstruction() {
     alert("This doesn't do anything yet. Come back later");

@@ -103,27 +103,32 @@ div {
   margin: 10px 0;
 }
 /* line 75, ../../app/stylesheets/application.sass */
+#player #time {
+  font-size: 12px;
+  color: blue;
+}
+/* line 79, ../../app/stylesheets/application.sass */
 #player #track-info {
   font-size: 12px;
   width: 450px;
   /*border: 1px solid black */
   float: left;
 }
-/* line 80, ../../app/stylesheets/application.sass */
+/* line 84, ../../app/stylesheets/application.sass */
 #player #track-info .label, #player #track-info .name {
   float: left;
 }
-/* line 82, ../../app/stylesheets/application.sass */
+/* line 86, ../../app/stylesheets/application.sass */
 #player #track-info .label {
   width: 50px;
   font-weight: bolder;
 }
-/* line 86, ../../app/stylesheets/application.sass */
+/* line 90, ../../app/stylesheets/application.sass */
 #player #track-info .artist, #player #track-info .album, #player #track-info .title, #player #track-info .filename {
   margin: 5px 0;
 }
 
-/* line 89, ../../app/stylesheets/application.sass */
+/* line 93, ../../app/stylesheets/application.sass */
 #search {
   border: 10px solid black;
   padding: 20px;
@@ -131,35 +136,35 @@ div {
   width: 620px;
   padding: 10px;
 }
-/* line 95, ../../app/stylesheets/application.sass */
+/* line 99, ../../app/stylesheets/application.sass */
 #search input[type='text'] {
   border: 1px solid grey;
   width: 500px;
 }
 
-/* line 99, ../../app/stylesheets/application.sass */
+/* line 103, ../../app/stylesheets/application.sass */
 #server-url {
   display: none;
 }
 
-/* line 102, ../../app/stylesheets/application.sass */
+/* line 106, ../../app/stylesheets/application.sass */
 #tracks {
   overflow: auto;
   height: 600px;
   width: 600px;
   position: relative;
 }
-/* line 108, ../../app/stylesheets/application.sass */
+/* line 112, ../../app/stylesheets/application.sass */
 #tracks .playing {
   background-color: yellow;
 }
 
-/* line 112, ../../app/stylesheets/application.sass */
+/* line 116, ../../app/stylesheets/application.sass */
 #server-form input[type='text'] {
   width: 500px;
 }
 
-/* line 116, ../../app/stylesheets/application.sass */
+/* line 120, ../../app/stylesheets/application.sass */
 #queue-tracks {
   float: left;
   width: 200px;
