@@ -36,7 +36,11 @@ head(function() {
     });
 
     $("#player .seek-backwards a").click(function() {
-      underConstruction();
+      if (mySound != null && mySound.loaded) {
+        newValue = mySound.position - 10000
+        if (newValue < 0) newValue = 0;
+        mySound.setPosition(newValue);
+      }
     });
 
     $("#player .play a").click(function() {
@@ -53,7 +57,11 @@ head(function() {
     });
 
     $("#player .seek-forwrds a").click(function() {
-      underConstruction();
+      if (mySound != null && mySound.loaded) {
+        newValue = mySound.position + 10000
+        if (newValue > mySound.duration) newValue = mySound.duration - 10000;
+        mySound.setPosition(newValue);
+      }
     });
 
     $("#player .skip-forwrds a").click(function() {
@@ -88,7 +96,10 @@ head(function() {
   }
 
   function playTrack(track_id) {
-    soundManager.stopAll();
+    if (mySound != null) {
+      mySound.destruct();
+    }
+
     $("#player .play a").html("<img alt='play' src='/images/play.png'>");
 
     $.ajax({
@@ -117,7 +128,7 @@ head(function() {
           id: playing,
           url: getServerUrl() + '/' + track_id,
           volume: globalVolume,
-          onjustbeforefinish: nextTrack
+          onfinish: nextTrack
           //ondataerror: alert("THERE HAS BEEN A DATA ERROR")
         });
 
