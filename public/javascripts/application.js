@@ -104,13 +104,13 @@ head(function() {
           if (playing != '') ' - '
           playing =  playing + trackInfo['title'];
         } else {
-          playingName = trackInfo['filename']
+          playing = trackInfo['filename']
         }
 
         setTrackInfo(trackInfo)
 
         mySound = soundManager.createSound({
-          id: playingName,
+          id: playing,
           url: getServerUrl() + '/' + track_id,
           volume: globalVolume,
           onjustbeforefinish: nextTrack
