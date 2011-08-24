@@ -22,12 +22,14 @@
       #volume-level 100
 
     #number-of-tracks
-      .text Num Tracks: &nbsp;
       .count= @tracks.size
+      .text &nbsp;Tracks
+
     #controls
       .skip-backwards= link_to image_tag('skip_backwards.png'), '#'
       .seek-backwards= link_to image_tag('seek_backwards.png'), '#'
       .play= link_to image_tag('play.png'), '#'
+      .stop= link_to image_tag('stop.png'), '#'
       .seek-forwrds= link_to image_tag('seek_forwards.png'),'#'
       .skip-forwrds= link_to image_tag('skip_forwards.png'),'#'
       .clear

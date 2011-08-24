@@ -80,6 +80,12 @@ head(function() {
       }
     });
 
+    $("#player .stop a").click(function() {
+      if (mySound != null) {
+        mySound.destruct();
+      }
+    });
+
     $("#player .seek-forwrds a").click(function() {
       if (mySound != null && mySound.loaded) {
         newValue = mySound.position + 10000
