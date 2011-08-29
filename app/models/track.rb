@@ -5,6 +5,8 @@ class Track
   attr_accessor :artist
   attr_accessor :album
   attr_accessor :title
+  attr_accessor :track
+  attr_accessor :md5_hash
 
   TRACKS_CACHE_KEY = "TRACKS_CACHE_KEY"
 
@@ -35,17 +37,21 @@ class Track
       File.open(tracks_file, 'r') do |file|
         json_contents = file.read
         parsed_json = JSON.parse(json_contents)
-        parsed_json.each do |index, track_info|
+        parsed_json.each do |track_info|
           begin
-            track = Track.new
+            if track_info.last.is_a?(Hash)
+              track = Track.new
 
-            track.filename = track_info['filename']
-            track.artist   = track_info['artist']
-            track.album    = track_info['album']
-            track.title    = track_info['title']
-            track.id       = index.to_i
+              track.filename = track_info.last['filename']
+              track.artist   = track_info.last['artist']
+              track.album    = track_info.last['album']
+              track.title    = track_info.last['title']
+              track.track    = track_info.last['track']
+              track.md5_hash = track_info.last['md5_hash']
+              track.id       = index.track_info.first
 
-            tracks.insert(track.id, track)
+              tracks << track
+            end
           rescue Exception => e
             Rails.logger.error "Error: #{track_info.inspect} #{e}"
           end
@@ -93,6 +99,7 @@ class Track
 
   end
 
+  # TODO: This method is a mess. Need to sort it out
   def display_name
     return @display_name if @display_name
     name = []
@@ -107,8 +114,9 @@ class Track
 
     name = name.select(&:present?)
 
-    @display_name = name.empty? ? filename : name.join(' - ')
+    @display_name = name.empty? ? filename : name.insert(0, track).join(' - ')
     @display_name
   end
 
 end
+
