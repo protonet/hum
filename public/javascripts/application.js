@@ -45,7 +45,7 @@ head(function() {
   $("#search-form input[type='submit']").click(function(e) {
     e.preventDefault();
     $.ajax({
-      url: '/search/' + $("#search-form #search").attr('value'),
+      url: '/tracks/search?term=' + $("#search-form #search").attr('value'),
       success: function(data) {
         $("#search .results").html(data);
       }
@@ -117,6 +117,14 @@ head(function() {
     });
   });
 
+  // TODO: Load the queue
+  function loadQueue {
+  }
+
+  // TODO load the list
+  function loadList {
+  }
+
   function setVolume(volumeValue) {
     if (mySound != null) {
       mySound.setVolume(newVolume);
@@ -126,7 +134,11 @@ head(function() {
   }
 
   function playTrack(track_id) {
-    if (mySound != null) mySound.destruct();
+    if (mySound != null) {
+      // TODO: Add the current song to the list if the song
+      // has played more than 20 seconds
+      mySound.destruct();
+    }
     if (timmer != null) clearTimeout(timmer);
 
     $("#player .play a").html("<img alt='play' src='/images/play.png'>");
@@ -183,18 +195,21 @@ head(function() {
   }
 
   function nextTrack() {
-    if (isRandomPlay()) {
+    // TODO: Check if there is something in the queue
+    if (there is something in the queue) {
+
+    } else if (isRandomPlay()) {
       nextTrackIndex = randomTackNumber();
     } else {
       nextTrackIndex = nextTrackIndex + 1
     }
 
     $.ajax({
-      url: '/track_hash/' + nextTrackIndex,
+      url: '/track/id/' + nextTrackIndex,
       dataType: 'json',
       data: {format: 'js'},
       success: function(trackHash) {
-        playTrack(trackHash['md5_hash']);
+        playTrack(trackHash['id']);
       }
     });
   }

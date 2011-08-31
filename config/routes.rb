@@ -10,10 +10,10 @@ Hum::Application.routes.draw do
       get 'fetch'
       get 'reload'
       get 'search'
-      get 'id'
     end
-
   end
+
+  match '/track/id/:id' => 'tracks#id'
 
   resources :queue, :only => [:index] do
     collection do
@@ -26,7 +26,6 @@ Hum::Application.routes.draw do
     collection do
       get 'add_to'
     end
-
   end
 
 end
