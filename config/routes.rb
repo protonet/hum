@@ -1,12 +1,33 @@
 Hum::Application.routes.draw do
 
-  root :to => 'application#index'
+  root :to => 'tracks#index'
 
-  match 'fetch_tracks'      => 'application#fetch_tracks',  :as => 'fetch_tracks'
-  match 'reload_tracks '    => 'application#reload_tracks', :as => 'reload_tracks'
-  match 'server_url'        => 'application#server_url',    :as => 'server_url'
-  match 'search/:term'      => 'application#search',        :as => 'search'
-  match 'track/:id'         => 'application#track',         :as => 'track'
-  match 'track_hash/:index' => 'application#track_hash',    :as => 'track_hash'
+
+  match 'server_url' => 'application#server_url',    :as => 'server_url'
+
+  resources :tracks, :only => [:index, :show] do
+    collection do
+      get 'fetch'
+      get 'reload'
+      get 'search'
+      get 'id'
+    end
+
+  end
+
+  resources :queue, :only => [:index] do
+    collection do
+      get 'add_to'
+      get 'remove_from'
+    end
+  end
+
+  resources :list, :only => [:index] do
+    collection do
+      get 'add_to'
+    end
+
+  end
 
 end
+
