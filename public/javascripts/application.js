@@ -196,7 +196,6 @@ head(function() {
       dataType: 'json',
       data: {format: 'js'},
       success: function(trackHash) {
-        alert("playing " + trackHash['md5_hash']);
         playTrack(trackHash['md5_hash']);
       }
     });
