@@ -173,8 +173,6 @@ head(function() {
     });
   }
 
-
-
   function underConstruction() {
     alert("This doesn't do anything yet. Come back later");
   }
@@ -193,7 +191,15 @@ head(function() {
       nextTrackIndex = nextTrackIndex + 1
     }
 
-    playTrack(nextTrackIndex);
+    $.ajax({
+      url: '/track_hash/' + nextTrackIndex,
+      dataType: 'json',
+      data: {format: 'js'},
+      success: function(trackHash) {
+        alert("playing " + trackHash['md5_hash']);
+        playTrack(trackHash['md5_hash']);
+      }
+    });
   }
 
   function setPlayState() {

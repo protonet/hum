@@ -37,21 +37,21 @@ class Track
 
       File.open(tracks_file, 'r') do |file|
         json_contents = file.read
-        
-	parsed_json = JSON.parse(json_contents)
-        parsed_json.each do |track_info|
+
+        parsed_json = JSON.parse(json_contents)
+        parsed_json.each do |hash_id, track_info|
           begin
-            if track_info.last.is_a?(Hash)
+            if track_info.is_a?(Hash)
               track = Track.new
 
-              track.filename = track_info.last['filename']
-              track.artist   = track_info.last['artist']
-              track.album    = track_info.last['album']
-              track.title    = track_info.last['title']
-              track.track    = track_info.last['track']
-              track.md5_hash = track_info.last['md5_hash']
-              track.id       = track_info.first
-puts track.inspect
+              track.filename = track_info['filename']
+              track.artist   = track_info['artist']
+              track.album    = track_info['album']
+              track.title    = track_info['title']
+              track.track    = track_info['track']
+              track.md5_hash = track_info['md5_hash']
+              track.id       = hash_id
+
               tracks << track
             end
           rescue Exception => e
@@ -59,6 +59,8 @@ puts track.inspect
           end
         end
       end
+
+      tracks = tracks.sort{|a,b| a.filename <=> b.filename}
 
       puts "Tracks Cached #{Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)}"
       tracks

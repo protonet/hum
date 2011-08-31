@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   use Rails::DataMapper::Middleware::IdentityMap
   protect_from_forgery
 
+  def rails_path
+    render :text => send("#{params[:path_name]}_path"), :layout => false
+  end
+
   def index
     Track.load_tracks unless Track.tracks_loaded?
     @tracks = Track.tracks
@@ -25,6 +29,10 @@ class ApplicationController < ActionController::Base
     hum_config.save
     expire_page :action => 'index'
     render :text => hum_config.server, :layout => false
+  end
+
+  def track_hash
+    render :json => {'md5_hash' => Track.tracks[params[:index].to_i].md5_hash}, :layout => false
   end
 
   def track
