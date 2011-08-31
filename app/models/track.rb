@@ -13,7 +13,8 @@ class Track
   class << self
 
     def tracks_loaded?
-      Rails.cache.read(Track::TRACKS_CACHE_KEY).nil?
+      tracks = Rails.cache.read(Track::TRACKS_CACHE_KEY)
+      !tracks.nil? && !tracks.empty?
     end
 
     def tracks
@@ -36,7 +37,8 @@ class Track
 
       File.open(tracks_file, 'r') do |file|
         json_contents = file.read
-        parsed_json = JSON.parse(json_contents)
+        
+	parsed_json = JSON.parse(json_contents)
         parsed_json.each do |track_info|
           begin
             if track_info.last.is_a?(Hash)
@@ -48,8 +50,8 @@ class Track
               track.title    = track_info.last['title']
               track.track    = track_info.last['track']
               track.md5_hash = track_info.last['md5_hash']
-              track.id       = index.track_info.first
-
+              track.id       = track_info.first
+puts track.inspect
               tracks << track
             end
           rescue Exception => e
@@ -58,7 +60,7 @@ class Track
         end
       end
 
-      Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)
+      puts "Tracks Cached #{Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)}"
       tracks
     end
 
