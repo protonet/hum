@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def track
     tracks = Track.tracks
-    track = tracks[params[:id].to_i]
+    track = tracks[params[:id]]
 
     respond_to do |format|
       format.js do
@@ -51,3 +51,4 @@ class ApplicationController < ActionController::Base
     render :partial => 'tracks', :locals => {:tracks => tracks}
   end
 end
+

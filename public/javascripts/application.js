@@ -125,8 +125,6 @@ head(function() {
     }
   }
 
-
-
   function playTrack(track_id) {
     if (mySound != null) mySound.destruct();
     if (timmer != null) clearTimeout(timmer);
