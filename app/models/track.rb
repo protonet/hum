@@ -8,7 +8,8 @@ class Track
   attr_accessor :track
   attr_accessor :md5_hash
 
-  TRACKS_CACHE_KEY = "TRACKS_CACHE_KEY"
+  TRACKS_CACHE_KEY        = "TRACKS_CACHE_KEY"
+  TRACKS_HASH_MAPPING_KEY = "TRACKS_HASH_MAPPING_KEY"
 
   class << self
 
@@ -19,6 +20,22 @@ class Track
 
     def tracks
       Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
+    end
+
+    def hash_to_index(hash)
+      mappings = Track.hash_to_index_mappings
+      mappings[hash]
+    end
+
+    def hash_to_index_mappings
+      hash = Rails.cache.read(Track::TRACKS_HASH_MAPPING_KEY) || {}
+      if hash.empty?
+        tracks.each_with_index do |track, index|
+          hash[track.md5_hash] = index
+        end
+        Rails.cache.write(Track::TRACKS_HASH_MAPPING_KEY, hash)
+      end
+      hash
     end
 
     def fetch_tracks

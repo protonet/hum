@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def track
     tracks = Track.tracks
-    track = tracks[params[:id]]
+    track = tracks[Track.hash_to_index(params[:id])]
 
     respond_to do |format|
       format.js do
