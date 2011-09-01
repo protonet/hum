@@ -7,6 +7,7 @@ class Track
   attr_accessor :title
   attr_accessor :track
   attr_accessor :md5_hash
+  attr_accessor :genres
 
   TRACKS_CACHE_KEY           = "TRACKS_CACHE_KEY"
   TRACKS_HASH_MAPPING_KEY    = "TRACKS_HASH_MAPPING_KEY"
@@ -68,7 +69,7 @@ class Track
               track.album    = track_info['album']
               track.title    = track_info['title']
               track.track    = track_info['track']
-              track.md5_hash = track_info['md5_hash']
+              track.genres   = track_info['genres']
               track.id       = hash_id
 
               tracks << track
@@ -119,7 +120,6 @@ class Track
     def tracks_file
       @tracks_file ||= "#{tmp_dir}/tracks.json"
     end
-
   end
 
   # TODO: This method is a mess. Need to sort it out
@@ -137,7 +137,14 @@ class Track
 
     name = name.select(&:present?)
 
-    @display_name = name.empty? ? filename : name.insert(0, track).join(' - ')
+    @display_name = if name.empty?
+      file_bases = Track.tracks['music_bases']
+      file_bases.each{|file_base| filename = filename.gsub(file_base,'')}
+      filename
+    else
+      name.insert(0, track).join(' - ')
+    end
+
     @display_name
   end
 

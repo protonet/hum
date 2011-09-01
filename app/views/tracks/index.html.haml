@@ -5,6 +5,11 @@
   = text_field_tag "server_url", HumConfig.conf.server
   = submit_tag "set"
 
+#nginx
+  = label_tag "Serve through nginx"
+  = check_box_tag :nginx, '1',true
+.clear
+
 #previous-tracks
   %span Previous Tracks
   .clear
@@ -37,6 +42,10 @@
     #time
 
     #track-info
+      .track-num
+        .label Track:
+        .name None
+        .clear
       .artist
         .label Artist:
         .name None
@@ -75,3 +84,4 @@
 #queue-tracks
   %span Queue
   .clear
+

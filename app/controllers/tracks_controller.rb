@@ -27,8 +27,12 @@ class TracksController < ApplicationController
     redirect_to :action => 'index'
   end
 
-  def id
+  def to_id
     render :json => {'id' => Track.tracks[params[:index].to_i].md5_hash}, :layout => false
+  end
+
+  def to_index
+    render :json => {'index' => Track.tracks.index(params[:id])}, :layout => false
   end
 
   def search

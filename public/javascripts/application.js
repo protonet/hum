@@ -118,11 +118,11 @@ head(function() {
   });
 
   // TODO: Load the queue
-  function loadQueue {
+  function loadQueue() {
   }
 
   // TODO load the list
-  function loadList {
+  function loadList() {
   }
 
   function setVolume(volumeValue) {
@@ -144,7 +144,7 @@ head(function() {
     $("#player .play a").html("<img alt='play' src='/images/play.png'>");
 
     $.ajax({
-      url: '/track/' + track_id,
+      url: '/tracks/' + track_id,
       dataType: 'json',
       data: {format: 'js'},
       success: function(trackInfo) {
@@ -165,9 +165,11 @@ head(function() {
 
         setTrackInfo(trackInfo)
 
+        extraInstruction = serveViaNginx() ? '?nginx=true' : '';
+
         mySound = soundManager.createSound({
           id: playing,
-          url: getServerUrl() + '/' + track_id,
+          url: getServerUrl() + '/' + track_id + extraInstruction,
           volume: globalVolume,
           onfinish: nextTrack
           //ondataerror: alert("THERE HAS BEEN A DATA ERROR")
@@ -184,10 +186,17 @@ head(function() {
   }
 
   function underConstruction() {
-    alert("This doesn't do anything yet. Come back later");
+    if (mySound != null) {
+      if ((mySound.position / 1000) >= 5) {
+        mySound.setPosition(0)
+      } else {
+        alert("This will jump to the previous track when I have implemented it");
+      }
+    }
   }
 
   function setTrackInfo(trackInfo) {
+    $("#track-info .track .name").html(trackInfo['track']);
     $("#track-info .artist .name").html(trackInfo['artist']);
     $("#track-info .album .name").html(trackInfo['album']);
     $("#track-info .title .name").html(trackInfo['title']);
@@ -196,7 +205,7 @@ head(function() {
 
   function nextTrack() {
     // TODO: Check if there is something in the queue
-    if (there is something in the queue) {
+    if (false) {
 
     } else if (isRandomPlay()) {
       nextTrackIndex = randomTackNumber();
@@ -205,7 +214,7 @@ head(function() {
     }
 
     $.ajax({
-      url: '/track/id/' + nextTrackIndex,
+      url: '/track/to_id/' + nextTrackIndex,
       dataType: 'json',
       data: {format: 'js'},
       success: function(trackHash) {
@@ -226,8 +235,16 @@ head(function() {
     return Math.floor(Math.random()*numOfTracks);
   }
 
+  function serveViaNginx() {
+    return checkBoxChecked("#nginx input:checked");
+  }
+
   function isRandomPlay() {
-    if ($("#player .random input:checked").length >= 1) {
+    return checkBoxChecked("#player .random input:checked");
+  }
+
+  function checkBoxChecked(selector) {
+    if ($(selector).length >= 1) {
       return true;
     } else {
       return false;

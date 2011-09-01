@@ -13,7 +13,8 @@ Hum::Application.routes.draw do
     end
   end
 
-  match '/track/id/:id' => 'tracks#id'
+  match '/track/to_id/:index' => 'tracks#to_id'
+  match '/track/to_index/:id' => 'tracks#to_index'
 
   resources :queue, :only => [:index] do
     collection do
