@@ -7,3 +7,4 @@ vendor/ruby
 !vendor/gems/cache/
 .sass-cache/*
 db/*_dev.db
+db/*_dev*.db
