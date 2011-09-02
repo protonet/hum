@@ -56,12 +56,13 @@ class Track
         json_contents = file.read
 
         parsed_json = JSON.parse(json_contents)
+        music_bases = parsed_json['music_bases']
         parsed_json.each do |hash_id, track_info|
           begin
             if track_info.is_a?(Hash)
               track = Track.new
 
-              track.filename = track_info['filename']
+              track.filename = shorten_filename(track_info['filename'], music_bases)
               track.artist   = track_info['artist']
               track.album    = track_info['album']
               track.title    = track_info['title']
@@ -72,6 +73,7 @@ class Track
               tracks << track
             end
           rescue Exception => e
+            puts "Error: #{track_info.inspect} #{e}"
             Rails.logger.error "Error: #{track_info.inspect} #{e}"
           end
         end
@@ -117,6 +119,14 @@ class Track
     def tracks_file
       @tracks_file ||= "#{tmp_dir}/tracks.json"
     end
+
+    def shorten_filename(filename, m_bases = nil)
+      music_bases = m_bases.nil? ? music_bases = Track.tracks['music_bases'] : m_bases
+
+      music_bases.each{|music_base| filename = filename.gsub(music_base,'')}
+
+      filename
+    end
   end
 
   # TODO: This method is a mess. Need to sort it out
@@ -134,15 +144,7 @@ class Track
 
     name = name.select(&:present?)
 
-    @display_name = if name.empty?
-      file_bases = Track.tracks['music_bases']
-      file_bases.each{|file_base| filename = filename.gsub(file_base,'')}
-      filename
-    else
-      name.insert(0, track).join(' - ')
-    end
-
-    @display_name
+    return name.empty? ? Track.shorten_filename(filename) : name.insert(0, track).join(' - ')
   end
 
 end
