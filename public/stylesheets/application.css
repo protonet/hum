@@ -126,7 +126,7 @@ div {
   font-weight: bolder;
 }
 /* line 92, ../../app/stylesheets/application.sass */
-#player #track-info .track-num, #player #track-info .artist, #player #track-info .album, #player #track-info .title, #player #track-info .filename {
+#player #track-info .track-num, #player #track-info .artist, #player #track-info .album, #player #track-info .title, #player #track-info .genres, #player #track-info .filename {
   margin: 5px 0;
 }
 

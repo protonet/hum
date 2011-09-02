@@ -6,13 +6,10 @@ class Track
   attr_accessor :album
   attr_accessor :title
   attr_accessor :track
-  attr_accessor :md5_hash
   attr_accessor :genres
 
   TRACKS_CACHE_KEY           = "TRACKS_CACHE_KEY"
   TRACKS_HASH_MAPPING_KEY    = "TRACKS_HASH_MAPPING_KEY"
-  TRACKS_PREVIOUS_TRACKS_KEY = "TRACKS_PREVIOUS_TRACKS_KEY"
-  TRACKS_QUEUE_KEY           = "TRACKS_QUEUE_KEY"
 
   class << self
 
@@ -25,16 +22,16 @@ class Track
       Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
     end
 
-    def hash_to_index(hash)
+    def hash_to_index(id)
       mappings = Track.hash_to_index_mappings
-      mappings[hash]
+      mappings[id]
     end
 
     def hash_to_index_mappings
       hash = Rails.cache.read(Track::TRACKS_HASH_MAPPING_KEY) || {}
       if hash.empty?
         tracks.each_with_index do |track, index|
-          hash[track.md5_hash] = index
+          hash[track.id] = index
         end
         Rails.cache.write(Track::TRACKS_HASH_MAPPING_KEY, hash)
       end

@@ -52,6 +52,10 @@ head(function() {
     });
   });
 
+  soundManager.onerror = function(status) {
+    alert("Hey. Something went wrong. Flash didn't load. " + status.type);
+  };
+
   soundManager.onready(function() {
 
     // Player Controls
@@ -196,10 +200,11 @@ head(function() {
   }
 
   function setTrackInfo(trackInfo) {
-    $("#track-info .track .name").html(trackInfo['track']);
+    $("#track-info .track-num .name").html(trackInfo['track']);
     $("#track-info .artist .name").html(trackInfo['artist']);
     $("#track-info .album .name").html(trackInfo['album']);
     $("#track-info .title .name").html(trackInfo['title']);
+    $("#track-info .genres .name").html(trackInfo['genres']);
     $("#track-info .filename .name").html(trackInfo['filename']);
   }
 

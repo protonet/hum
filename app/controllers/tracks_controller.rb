@@ -8,12 +8,7 @@ class TracksController < ApplicationController
   def show
     tracks = Track.tracks
     track = tracks[Track.hash_to_index(params[:id])]
-
-    respond_to do |format|
-      format.js do
-        render :text => track.to_json, :layout => false
-      end
-    end
+    render :json => track, :layout => false
   end
 
   def reload
@@ -28,7 +23,7 @@ class TracksController < ApplicationController
   end
 
   def to_id
-    render :json => {'id' => Track.tracks[params[:index].to_i].md5_hash}, :layout => false
+    render :json => {'id' => Track.tracks[params[:index].to_i].id}, :layout => false
   end
 
   def to_index
