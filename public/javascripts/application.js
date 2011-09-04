@@ -238,7 +238,7 @@ head(function() {
     $.ajax({
       url: '/queue/next_track',
       dataType: 'json',
-      cache: false
+      cache: false,
       data: {format: 'js'},
       success: function(data) {
 
