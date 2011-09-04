@@ -103,11 +103,6 @@ head(function() {
     });
     // End Player Controls
 
-    $(".track a").live('click', function(e) {
-      e.preventDefault();
-      playTrack($(this).attr('data-track-id'));
-    });
-
     $("#player #vol-up a").click(function() {
       newVolume = mySound.volume + 10;
       if (newVolume > 100) newVolume = 100;
@@ -119,10 +114,37 @@ head(function() {
       if (newVolume < 0) newVolume = 0;
       setVolume(newVolume);
     });
+
+    $(".track .name a").live('click', function(e) {
+      e.preventDefault();
+      playTrack($(this).attr('data-track-id'));
+    });
+
+    $(".track .queue a").live('click', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/queue/add_to/' + $(this).attr('data-track-id'),
+        data: {format: 'js'},
+        success: function() {
+          loadQueue();
+        }
+      });
+    });
+
   });
+
+  loadQueue();
 
   // TODO: Load the queue
   function loadQueue() {
+    $.ajax({
+      url: '/queue',
+      //dataType: 'json',
+      data: {format: 'js'},
+      success: function(data) {
+        $("#queue-tracks").html(data);
+      }
+    });
   }
 
   // TODO load the list
@@ -209,21 +231,31 @@ head(function() {
   }
 
   function nextTrack() {
-    // TODO: Check if there is something in the queue
-    if (false) {
-
-    } else if (isRandomPlay()) {
-      nextTrackIndex = randomTackNumber();
-    } else {
-      nextTrackIndex = nextTrackIndex + 1
-    }
-
     $.ajax({
-      url: '/track/to_id/' + nextTrackIndex,
+      url: '/queue/next_track',
       dataType: 'json',
       data: {format: 'js'},
-      success: function(trackHash) {
-        playTrack(trackHash['id']);
+      success: function(data) {
+
+        if (data['id'] != '') {
+          loadQueue();
+          playTrack(data['id']);
+        } else {
+          if (isRandomPlay()) {
+            nextTrackIndex = randomTackNumber();
+          } else {
+            nextTrackIndex = nextTrackIndex + 1
+          }
+
+          $.ajax({
+            url: '/track/to_id/' + nextTrackIndex,
+            dataType: 'json',
+            data: {format: 'js'},
+            success: function(trackHash) {
+              playTrack(trackHash['id']);
+            }
+          });
+        }
       }
     });
   }

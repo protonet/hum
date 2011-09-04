@@ -6,15 +6,16 @@ class Queue
 
     def add(track_hash)
       queue = list
-      queue << track_hash
+      queue = queue + [track_hash]
       Rails.cache.write(Queue::TRACKS_QUEUE_KEY, queue)
     end
 
     def remove
       queue = list
-      track_hash = queue.delete_at(0)
+      id = queue[0]
+      queue = queue.slice(1,queue.size - 1)
       Rails.cache.write(Queue::TRACKS_QUEUE_KEY, queue)
-      track_hash
+      id
     end
 
     def list

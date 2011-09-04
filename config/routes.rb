@@ -13,21 +13,16 @@ Hum::Application.routes.draw do
     end
   end
 
-  match '/track/to_id/:index' => 'tracks#to_id'
-  match '/track/to_index/:id' => 'tracks#to_index'
+  match '/track/to_id/:index'    => 'tracks#to_id'
+  match '/track/to_index/:id'    => 'tracks#to_index'
 
-  resources :queue, :only => [:index] do
-    collection do
-      get 'add_to'
-      get 'remove_from'
-    end
-  end
+  match '/queue'                     => 'queue#index',       :as => 'queue'
+  match '/queue/add_to/:id'          => 'queue#add_to',      :as => 'add_to_queue'
+  match '/queue/remove_from/:index ' => 'queue#remove_from', :as => 'remove_from_queue'
+  match '/queue/next_track'          => 'queue#next_track',  :as => 'next_track'
 
-  resources :list, :only => [:index] do
-    collection do
-      get 'add_to'
-    end
-  end
+  match '/list'                  => 'list#index',        :as => 'list'
+  match '/list/add_to/:id'       => 'list#add_to',       :as => 'add_to_list'
 
 end
 
