@@ -34,7 +34,7 @@ head(function() {
     e.preventDefault();
     $.ajax({
       url: '/server_url',
-      cache: false
+      cache: false,
       data: { server_url: getServerUrl() },
       success: function(data) {
         setServerUrl(data);
@@ -125,7 +125,7 @@ head(function() {
       e.preventDefault();
       $.ajax({
         url: '/queue/add_to/' + $(this).attr('data-track-id'),
-        cache: false
+        cache: false,
         data: {format: 'js'},
         success: function() {
           loadQueue();
@@ -142,7 +142,7 @@ head(function() {
     $.ajax({
       url: '/queue',
       //dataType: 'json',
-      cache: false
+      cache: false,
       data: {format: 'js'},
       success: function(data) {
         $("#queue-tracks").html(data);
@@ -175,7 +175,7 @@ head(function() {
     $.ajax({
       url: '/tracks/' + track_id,
       dataType: 'json',
-      cache: false
+      cache: false,
       data: {format: 'js'},
       success: function(trackInfo) {
 
