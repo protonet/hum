@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
 protected
 
-  def session_id
+  def session_cache_key
     request.session_options[:id]
   end
 

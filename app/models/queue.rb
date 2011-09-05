@@ -5,7 +5,7 @@ class Queue
   class << self
 
     def add(id, key_uniqueifier = nil)
-      queue = list
+      queue = list(key_uniqueifier)
       queue = queue + [id]
       Rails.cache.write(cache_key(key_uniqueifier), queue)
     end
