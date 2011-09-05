@@ -1,0 +1,6 @@
+- tracks = Track.tracks
+
+- @list.each_with_index do |id, index|
+  - track = tracks[Track.id_to_index(id)]
+  .item= track_links(index, track)
+  %hr

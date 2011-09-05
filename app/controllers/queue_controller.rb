@@ -7,7 +7,6 @@ class QueueController < ApplicationController
 
   def add_to
     Queue.add(params[:id])
-    puts "Queue is #{Queue.list}"
     render :nothing => true
   end
 

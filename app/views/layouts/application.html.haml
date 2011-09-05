@@ -6,6 +6,7 @@
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'facebox'
     = stylesheet_link_tag 'application'
 
     - if Rails.env.production?
@@ -17,7 +18,7 @@
       soundManager.flashLoadTimeout = 5000;
       soundManager.waitForWindowLoad = false
     = javascript_include_tag('head.min')
-    = headjs_include_tag('jquery.min', 'application', :cache => 'bundle')
+    = headjs_include_tag('jquery.min', 'facebox', 'application', :cache => 'bundle')
   %body
     = yield
 

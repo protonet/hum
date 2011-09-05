@@ -7,7 +7,7 @@ class TracksController < ApplicationController
 
   def show
     tracks = Track.tracks
-    track = tracks[Track.hash_to_index(params[:id])]
+    track = tracks[Track.id_to_index(params[:id])]
     render :json => track, :layout => false
   end
 

@@ -1,6 +1,6 @@
-%h1 Hum a Melody
-%h2 Client of the Melody Server
-= link_to 'Fetch Tracks From Server Again', reload_tracks_path
+#header
+  %h1 Hum a Melody
+  %h2 Client of the Melody Server
 
 = form_tag('#', :id => 'server-form') do
   = label_tag "Server"
@@ -12,9 +12,13 @@
   = check_box_tag :nginx, '1',true
 .clear
 
-#previous-tracks
-  %span Previous Tracks
-  .clear
+= link_to 'Fetch Tracks From Server Again', reload_tracks_path
+.clear
+= link_to 'Prev List', '#previous-tracks', :rel => "facebox"
+.clear
+= link_to 'Queue', '#queue-tracks', :rel => "facebox"
+
+.clear
 
 #center
   #player
@@ -91,3 +95,6 @@
   %span Queue
   .clear
 
+#previous-tracks
+  %span Previous Tracks
+  .clear

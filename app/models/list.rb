@@ -4,18 +4,18 @@ class List
 
   class << self
 
-    def add(track_hash)
+    def add(id)
       queue = list
-      queue << track_hash
-      Rails.cache.read(Queue::TRACKS_QUEUE_KEY, queue)
+      queue = [id] + queue
+      Rails.cache.write(List::TRACKS_LIST_KEY, queue)
     end
 
     def clear
-      Rails.cache.write(Queue::TRACKS_QUEUE_KEY, [])
+      Rails.cache.write(List::TRACKS_LIST_KEY, [])
     end
 
     def list
-      Rails.cache.read(Queue::TRACKS_QUEUE_KEY) || []
+      Rails.cache.read(List::TRACKS_LIST_KEY) || []
     end
 
   end

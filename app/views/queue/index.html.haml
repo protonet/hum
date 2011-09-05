@@ -1,6 +1,6 @@
 - tracks = Track.tracks
 
 - @queue.each do |id|
-  - track = tracks[Track.hash_to_index(id)]
+  - track = tracks[Track.id_to_index(id)]
   .item= track.display_name
   %hr

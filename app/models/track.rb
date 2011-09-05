@@ -22,12 +22,12 @@ class Track
       Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
     end
 
-    def hash_to_index(id)
-      mappings = Track.hash_to_index_mappings
+    def id_to_index(id)
+      mappings = Track.id_to_index_mappings
       mappings[id]
     end
 
-    def hash_to_index_mappings
+    def id_to_index_mappings
       hash = Rails.cache.read(Track::TRACKS_HASH_MAPPING_KEY) || {}
       if hash.empty?
         tracks.each_with_index do |track, index|
@@ -57,7 +57,7 @@ class Track
 
         parsed_json = JSON.parse(json_contents)
         music_bases = parsed_json['music_bases']
-        parsed_json.each do |hash_id, track_info|
+        parsed_json.each do |id, track_info|
           begin
             if track_info.is_a?(Hash)
               track = Track.new
@@ -68,7 +68,7 @@ class Track
               track.title    = track_info['title']
               track.track    = track_info['track']
               track.genres   = track_info['genres']
-              track.id       = hash_id
+              track.id       = id
 
               tracks << track
             end

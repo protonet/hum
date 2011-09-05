@@ -4,9 +4,9 @@ class Queue
 
   class << self
 
-    def add(track_hash)
+    def add(id)
       queue = list
-      queue = queue + [track_hash]
+      queue = queue + [id]
       Rails.cache.write(Queue::TRACKS_QUEUE_KEY, queue)
     end
 

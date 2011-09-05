@@ -1,5 +1,6 @@
 var timmer = null;
 var mySound = null;
+var currentTrackId = null;
 var playing = null;
 var numOfTracks = parseInt($('#number-of-tracks .count').text());
 var nextTrackIndex = 0;
@@ -29,6 +30,11 @@ function displayCurrentTime() {
 }
 
 head(function() {
+
+  $.facebox.settings.closeImage = '/images/closelabel.png'
+  $.facebox.settings.loadingImage = '/images/loading.gif'
+
+  $('a[rel*=facebox]').facebox();
 
   $("#server-form input[type='submit']").click(function(e) {
     e.preventDefault();
@@ -135,25 +141,6 @@ head(function() {
 
   });
 
-  loadQueue();
-
-  // TODO: Load the queue
-  function loadQueue() {
-    $.ajax({
-      url: '/queue',
-      //dataType: 'json',
-      cache: false,
-      data: {format: 'js'},
-      success: function(data) {
-        $("#queue-tracks").html(data);
-      }
-    });
-  }
-
-  // TODO load the list
-  function loadList() {
-  }
-
   function setVolume(volumeValue) {
     if (mySound != null) {
       mySound.setVolume(newVolume);
@@ -163,9 +150,9 @@ head(function() {
   }
 
   function playTrack(track_id) {
+    addToList();
+
     if (mySound != null) {
-      // TODO: Add the current song to the list if the song
-      // has played more than 20 seconds
       mySound.destruct();
     }
     if (timmer != null) clearTimeout(timmer);
@@ -208,11 +195,25 @@ head(function() {
         $("#player .play a").html("<img alt='pause' src='/images/pause.png'>");
         $("#player #volume-level").text(mySound.volume);
 
+        currentTrackId = track_id;
         mySound.play();
 
         timmer = setTimeout("displayCurrentTime()",1000);
       }
     });
+  }
+
+  function addToList() {
+    if (currentTrackId != null && (mySound.position / 1000) >= 20) {
+      $.ajax({
+        url: '/list/add_to/' + currentTrackId,
+        cache: false,
+        data: {format: 'js'},
+        success: function(data) {
+          loadList();
+        }
+      });
+    }
   }
 
   function underConstruction() {
@@ -299,6 +300,33 @@ head(function() {
 
   function setServerUrl(data) {
     $("#server-form #server_url").attr("value", data)
+  }
+
+    loadQueue();
+
+  function loadQueue() {
+    $.ajax({
+      url: '/queue',
+      //dataType: 'json',
+      cache: false,
+      data: {format: 'js'},
+      success: function(data) {
+        $("#queue-tracks").html(data);
+      }
+    });
+  }
+
+  loadList();
+
+  function loadList() {
+    $.ajax({
+      url: '/list',
+      cache: false,
+      data: {format: 'js'},
+      success: function(data) {
+        $("#previous-tracks").html(data);
+      }
+    });
   }
 });
 
