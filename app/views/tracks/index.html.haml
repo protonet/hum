@@ -2,26 +2,34 @@
   %h1 Hum a Melody
   %h2 Client of the Melody Server
 
+%br
+
 = form_tag('#', :id => 'server-form') do
   = label_tag "Server"
   = text_field_tag "server_url", HumConfig.conf.server
   = submit_tag "set"
 
-#nginx
-  = label_tag "Serve through nginx"
-  = check_box_tag :nginx, '1',true
-.clear
-
-= link_to 'Fetch Tracks From Server Again', reload_tracks_path
-.clear
-= link_to 'Prev List', '#previous-tracks', :rel => "facebox"
-.clear
-= link_to 'Queue', '#queue-tracks', :rel => "facebox"
-
-.clear
-
 #center
   #player
+    #nginx
+      = label_tag "Serve Via..."
+      = select_tag "", options_for_select([["Application Server", ""], ["NGinx", "nginx"], ["Apache", "apache"]])
+    .clear
+
+    %br
+
+    = link_to 'Fetch from server', reload_tracks_path, :class => 'links'
+    %span &nbsp;|&nbsp;
+    = link_to 'Re-index', reload_tracks_path, :class => 'links'
+    .clear
+    %br
+    = link_to 'Prev List', '#previous-tracks', :rel => "facebox", :class => 'links'
+    %span &nbsp;|&nbsp;
+    = link_to 'Queue', '#queue-tracks', :rel => "facebox", :class => 'links'
+    .clear
+
+    %br
+
     #volume
       #vol
         = image_tag('vol.png')
@@ -74,9 +82,12 @@
         .clear
     .clear
 
+    %br
+
     .random
       = label_tag :random_play
       = check_box_tag :random, '1',true
+    %span &nbsp;
     .continuous
       = label_tag :continuous_play
       = check_box_tag :continuous, '1',true

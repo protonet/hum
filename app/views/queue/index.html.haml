@@ -1,6 +1,9 @@
 - tracks = Track.tracks
 
-- @queue.each do |id|
-  - track = tracks[Track.id_to_index(id)]
-  .item= track.display_name
-  %hr
+- if @queue.empty?
+  No Tracks in Queue
+- else
+  - @queue.each do |id|
+    - track = tracks[Track.id_to_index(id)]
+    .item= track.display_name
+    %hr
