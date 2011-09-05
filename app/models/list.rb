@@ -4,18 +4,24 @@ class List
 
   class << self
 
-    def add(id)
+    def add(id, key_uniqueifier = nil)
       queue = list
       queue = [id] + queue
-      Rails.cache.write(List::TRACKS_LIST_KEY, queue)
+      Rails.cache.write(cache_key(key_uniqueifier), queue)
     end
 
-    def clear
-      Rails.cache.write(List::TRACKS_LIST_KEY, [])
+    def clear(key_uniqueifier = nil)
+      Rails.cache.write(cache_key(key_uniqueifier), [])
     end
 
-    def list
-      Rails.cache.read(List::TRACKS_LIST_KEY) || []
+    def list(key_uniqueifier = nil)
+      Rails.cache.read(cache_key(key_uniqueifier)) || []
+    end
+
+    def cache_key(key_uniqueifier = nil)
+      key = "#{List::TRACKS_LIST_KEY}"
+      key += "-#{key_uniqueifier}" if key_uniqueifier
+      key
     end
 
   end

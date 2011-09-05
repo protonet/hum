@@ -4,22 +4,28 @@ class Queue
 
   class << self
 
-    def add(id)
+    def add(id, key_uniqueifier = nil)
       queue = list
       queue = queue + [id]
-      Rails.cache.write(Queue::TRACKS_QUEUE_KEY, queue)
+      Rails.cache.write(cache_key(key_uniqueifier), queue)
     end
 
-    def remove
+    def remove(key_uniqueifier = nil)
       queue = list
       id = queue[0]
       queue = queue.slice(1,queue.size - 1)
-      Rails.cache.write(Queue::TRACKS_QUEUE_KEY, queue)
+      Rails.cache.write(cache_key(key_uniqueifier), queue)
       id
     end
 
-    def list
-      Rails.cache.read(Queue::TRACKS_QUEUE_KEY) || []
+    def list(key_uniqueifier = nil)
+      Rails.cache.read(cache_key(key_uniqueifier)) || []
+    end
+
+    def cache_key(key_uniqueifier = nil)
+      key = "#{Queue::TRACKS_QUEUE_KEY}"
+      key += "-#{key_uniqueifier}" if key_uniqueifier
+      key
     end
 
   end

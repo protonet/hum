@@ -15,5 +15,11 @@ class ApplicationController < ActionController::Base
     render :text => hum_config.server, :layout => false
   end
 
+protected
+
+  def session_id
+    request.session_options[:id]
+  end
+
 end
 
