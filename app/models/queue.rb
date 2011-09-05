@@ -11,7 +11,7 @@ class Queue
     end
 
     def remove(key_uniqueifier = nil)
-      queue = list
+      queue = list(key_uniqueifier)
       id = queue[0]
       queue = queue.slice(1,queue.size - 1)
       Rails.cache.write(cache_key(key_uniqueifier), queue)
