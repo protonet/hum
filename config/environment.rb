@@ -3,3 +3,5 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
 Hum::Application.initialize!
+
+AppCache = Redis.new

@@ -7,15 +7,15 @@ class List
     def add(id, key_uniqueifier = nil)
       queue = list(key_uniqueifier)
       queue = [id] + queue
-      Rails.cache.write(cache_key(key_uniqueifier), queue)
+      HumCache.write(cache_key(key_uniqueifier), queue)
     end
 
     def clear(key_uniqueifier = nil)
-      Rails.cache.write(cache_key(key_uniqueifier), [])
+      HumCache.write(cache_key(key_uniqueifier), [])
     end
 
     def list(key_uniqueifier = nil)
-      Rails.cache.read(cache_key(key_uniqueifier)) || []
+      HumCache.read(cache_key(key_uniqueifier)) || []
     end
 
     def cache_key(key_uniqueifier = nil)

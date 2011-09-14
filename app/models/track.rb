@@ -14,12 +14,12 @@ class Track
   class << self
 
     def tracks_loaded?
-      tracks = Rails.cache.read(Track::TRACKS_CACHE_KEY)
+      tracks = HumCache.read(Track::TRACKS_CACHE_KEY)
       !tracks.nil? && !tracks.empty?
     end
 
     def tracks
-      Rails.cache.read(Track::TRACKS_CACHE_KEY) || []
+      HumCache.read(Track::TRACKS_CACHE_KEY) || []
     end
 
     def id_to_index(id)
@@ -28,12 +28,12 @@ class Track
     end
 
     def id_to_index_mappings
-      hash = Rails.cache.read(Track::TRACKS_HASH_MAPPING_KEY) || {}
+      hash = HumCache.read(Track::TRACKS_HASH_MAPPING_KEY) || {}
       if hash.empty?
         tracks.each_with_index do |track, index|
-          hash[track.id] = index
+          hash[track['id']] = index
         end
-        Rails.cache.write(Track::TRACKS_HASH_MAPPING_KEY, hash)
+        HumCache.write(Track::TRACKS_HASH_MAPPING_KEY, hash)
       end
       hash
     end
@@ -81,7 +81,7 @@ class Track
 
       tracks = tracks.sort{|a,b| a.filename <=> b.filename}
 
-      puts "Tracks Cached #{Rails.cache.write(Track::TRACKS_CACHE_KEY, tracks)}"
+      puts "Tracks Cached #{HumCache.write(Track::TRACKS_CACHE_KEY, tracks)}"
       tracks
     end
 
@@ -91,10 +91,10 @@ class Track
       search_result = tracks.select do |track|
         begin
           track &&
-            (regex =~ track.filename ||
-              regex =~ track.artist ||
-              regex =~ track.album ||
-              regex =~ track.title)
+            (regex =~ track['filename'] ||
+              regex =~ track['artist'] ||
+              regex =~ track['album'] ||
+              regex =~ track['title'])
         rescue Exception => e
           Rails.logger.error "Error: #{e}"
           nil

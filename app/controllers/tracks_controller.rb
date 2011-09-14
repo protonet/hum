@@ -23,7 +23,7 @@ class TracksController < ApplicationController
   end
 
   def to_id
-    render :json => {'id' => Track.tracks[params[:index].to_i].id}, :layout => false
+    render :json => {'id' => Track.tracks[params[:index].to_i]['id']}, :layout => false
   end
 
   def to_index
